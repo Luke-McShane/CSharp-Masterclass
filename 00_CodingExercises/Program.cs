@@ -1,20 +1,48 @@
 ﻿using System;
 
-internal class Program
+namespace _00_CodingExercises
 {
-  private static void Main(string[] args)
+  internal class Program
   {
-    Console.WriteLine("Hello, user!");
-    Console.WriteLine("What would you like to do?");
-    Console.WriteLine("[S]ee all todos.");
-    Console.WriteLine("[A]dd a todo.");
-    Console.WriteLine("[R]emove a todo.");
-    Console.WriteLine("[E]xit");
+    private static void Main(string[] args)
+    {
+      // Operators();
 
-    var input = Console.ReadKey().ToString();
-    Console.WriteLine("\nYour inputs: ", input);
-    Console.ReadKey();
+      Console.WriteLine("Hello, user!");
+      Console.WriteLine("What would you like to do?");
+      Console.WriteLine("[S]ee all todos.");
+      Console.WriteLine("[A]dd a todo.");
+      Console.WriteLine("[R]emove a todo.");
+      Console.WriteLine("[E]xit");
 
+      var input = Console.ReadLine();
+      Console.WriteLine("\nYour input: " + input);
+
+    }
+    private static void Operators()
+    {
+      int a = 5, b = 10; // Declaring and initialising variables of the same type on one line
+      // var a = 5, b = 10; this is using implicit types, where the compiler determines the types based on the values declared.
+      // Declaration must happen on the same line as initialisation however, as otherwise the compiler won't know what type to assign the variable.
+
+      Console.WriteLine("Addition: " + (a + b));
+      Console.WriteLine("Subtraction: " + (a - b));
+      Console.WriteLine("Division: " + b / a);
+      Console.WriteLine("Multiplication: " + a * b);
+
+      a++; //Increment the value by 1
+      --b; //Decrement the value by 1
+
+      /*
+      Booleans:
+      var isLargerOrEqualTo = a >= b;
+      var isSmallerOrEqualTo = a <= b;
+      var isLarger = a > b;
+      var isSmaller = a < b;
+      var isEven = 10 % 2 == 0;
+      var isOdd = 10 % 3 == 1;
+      */
+    }
   }
 }
 
