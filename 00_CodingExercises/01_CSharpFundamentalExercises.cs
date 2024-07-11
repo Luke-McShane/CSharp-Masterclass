@@ -1,6 +1,6 @@
 ﻿namespace _00_CodingExercises
 {
-  internal class _00_CodingExercises
+  internal class Program
   {
     private static void Main(string[] args)
     {
