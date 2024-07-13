@@ -17,7 +17,6 @@
 
     a++; //Increment the value by 1
     --b; //Decrement the value by 1
-
     if (a > b)
     {
       Console.WriteLine("a is larger than b");
@@ -209,4 +208,30 @@ public class Exercise
             return result;
         }
     }
+*/
+
+/*
+The 'out' keyword
+
+The out keyword allows us to pass an argument to a method by reference as opposed to by value, meaning any changes
+made to the value within the method apply to the variable outside the method, given that it is passed by reference.
+Usually a copy of a variable is passed to a method, but with the out keyword we pass the reference to it meaning that
+changes made within refer to the variable outside the method.
+
+*/
+
+/*
+Implementing the 'out' keyword
+
+We can check if a variable is an int using the TryParse method, which takes a variable and checks whether it can be converted to an int or not.
+We can also use the out keyword to set an variable passed as an argument to the resulting int. If we can't convert it to an int, it will return 0.
+
+myInput1 = "34";
+myInput2 = "23a";
+
+bool isFirstInt = Int.TryParse(myInput1, out int result1);
+bool isSecondInt = Int.TryParse(myInput2, out int result2);
+
+isFirstInt will be true; isSecondInt will be false.
+result1 will be initialised to 34; result2 will be initialised to 0.
 */
