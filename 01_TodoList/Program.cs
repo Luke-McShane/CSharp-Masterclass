@@ -1,53 +1,88 @@
-﻿
-public class CSharpFundementalExercises
+﻿public class CSharpFundementalExercises
 {
   private static void Main(string[] args)
   {
-    Console.WriteLine("Hello, user!");
-    Console.WriteLine("What would you like to do?");
-    Console.WriteLine("[S]ee all todos.");
-    Console.WriteLine("[A]dd a todo.");
-    Console.WriteLine("[R]emove a todo.");
-    Console.WriteLine("[E]xit");
-
-    var input = Console.ReadLine();
-    if (input is not null) input = input.ToUpper();
-
-    // Here we pass the *argument* called choice as a parameter into the Print method (a method is the same as a function in other languages)
-    // If we wanted the user input to be an integer, we could convert the result of .ReadLine() (which returns a string?) to an integer using
-    // the int.Parse(input) method. 
-
-    // He is the conventional if/else if/else way of handling user input
-    // if (input == "S") { Print("See all TODOs"); }
-    // else if (input == "A") { Print("Add a TODO"); }
-    // else if (input == "R") { Print("Remove a TODO"); }
-    // else if (input == "E") { Print("Exit"); } else Print("Unknown user input!");
-
-    // Here is the switch statement way of handling user input
-    switch (input)
+    string? input, addTodo;
+    bool validTodo, removed;
+    string[] validInputs = ["s", "S", "a", "A", "r", "R", "e", "E"];
+    List<string> myList = [];
+    Console.WriteLine("Hello!");
+    do
     {
-      case "S":
-        Print("See all TODOs");
-        break;
-      case "A":
-        Print("Remove a TODO");
-        break;
-      case "R":
-        Print("Remove a TODO");
-        break;
-      case "E":
-        Print("Exit");
-        break;
-      default:
-        Print("Unknown user input!");
-        break;
-    }
-  }
+      Console.WriteLine("What would you like to do?");
+      Console.WriteLine("[S]ee all todos.");
+      Console.WriteLine("[A]dd a todo.");
+      Console.WriteLine("[R]emove a todo.");
+      Console.WriteLine("[E]xit");
 
-  // Here we create a method called Print with the *parameter* called choice. An argument will be passed to Print, and the parameter will be initialised
-  // to the value of the argument provided.
-  static void Print(string choice)
-  {
-    Console.WriteLine("User's Choice: " + choice);
+      input = Console.ReadLine();
+      if (input is not null) input = input.ToUpper();
+
+      // Here is the switch statement way of handling user input
+      switch (input)
+      {
+        case "S":
+          if (myList.Count > 0)
+          {
+            foreach (string item in myList) { Console.WriteLine($"{myList.IndexOf(item) + 1}. {item}"); }
+          }
+          else { Console.WriteLine("No TODOs have been added yet."); }
+          break;
+        case "A":
+          validTodo = false;
+          do
+          {
+            Console.WriteLine("Enter the TODO description:");
+            addTodo = Console.ReadLine();
+            if (addTodo is null || addTodo.Trim() == "")
+            {
+              Console.WriteLine("The description cannot be empty.");
+              continue;
+            }
+            else if (myList.Contains(addTodo))
+            {
+              Console.WriteLine("The description must be unique.");
+              continue;
+            }
+            else
+            {
+              myList.Add(addTodo);
+              validTodo = true;
+              Console.WriteLine("TODO successfully added: " + addTodo);
+            }
+          } while (!validTodo);
+          break;
+        case "R":
+          removed = false;
+          if (myList.Count == 0)
+          {
+            Console.WriteLine("No TODOs have been added yet.");
+            break;
+          }
+          do
+          {
+            Console.WriteLine("Select the index of the TODO you want to remove:");
+            foreach (string item in myList) { Console.WriteLine($"{myList.IndexOf(item) + 1}. {item}"); }
+            string? removeTodo = Console.ReadLine();
+            Console.WriteLine("User Input: " + removeTodo);
+            Console.WriteLine("List Length: " + myList.Count);
+            if (removeTodo == "") { Console.WriteLine("Selected index cannot be empty."); }
+            if ((int.TryParse(removeTodo, out int removeIndex)) && (removeIndex <= myList.Count) && (removeIndex > 0))
+            {
+              myList.RemoveAt(removeIndex - 1);
+              removed = true;
+            }
+            else { Console.WriteLine("The given index is not valid.\n"); }
+          } while (!removed);
+          break;
+        case "E":
+          Console.WriteLine("Exit");
+          break;
+        default:
+          Console.WriteLine("Incorrect input");
+          break;
+      }
+      Console.WriteLine();
+    } while (input != "E");
   }
 }
