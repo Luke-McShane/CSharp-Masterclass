@@ -9,6 +9,17 @@ System.Console.WriteLine($"Width: {myRec.Width}\nHeight: {myRec.Height}");
 var appointment = new MedicalAppointment("Dave");
 appointment.Reschedule(8, 12);
 
+
+// Here we are using object initialisers to set the properties of the object. We could use a constructor instead, but this was
+// may be used if it is not obvious on object initialisation what properties we are setting. Object initialisers are commonly
+// used alongside a constructor, when the constructor sets the essential fields of the object, and the object initialiser sets
+// non-essential fields or properties of the object. This saves creating many constructors to handle all paramter sets.
+var david = new Person
+{
+  Name = "David",
+  YearOfBirth = 1995
+};
+
 class Rectangle
 {
   // These variables are the fields of the Rectangle class.
@@ -67,6 +78,49 @@ class Rectangle
   public int CalculateCircumference() => (Width * Height) * 2;
 }
 
+
+class Triangle
+{
+  // Here we are using getters and setters to set the properties of this class. Properties are used instead of fields to protect the inner
+  // workings of the class. This is because a private 'backing field' is created at compile time for each property, which is what the getter
+  // and setter reference. So the first line of code below is very similar to:
+  // private int _side1;
+  // public void GetSide1() => _side;
+  // public int SetSide1(int value) => _side1 = value;
+  // Or, we could do it the original C# way:
+  // private int _side1;
+  // public int Side1 {
+  //  get { return _side1; }
+  //  set { _side1 = value; }
+  // }
+  // 'value' is whatever we pass, and because we are defining a property, we don't use parenthesis. So we would do Side1 = 21 and this would 
+  // call the getter
+  // The code below will actually translate at compile-time to something similar to the above code, also generating the backing field.
+
+  public int Side1 { get; private set; }
+  // If we do not have a setter, we can initialise the value like this: public int Side1 { get; } = 12;
+  // Or we can initialise the value in the constructor. If no value is set, the default value will be used and we cannot change the value.
+  // We can also have a public getter and private setter, making properties different from fields, which must either be entirely public or private.
+  // Rule of Thumb: fiels should always be private. If we want to expose some component of a class to the outside world, use properties.
+  public int Side2 { get; private set; }
+  public int Side3 { get; private set; }
+
+  Triangle(int a = 3, int b = 3, int c = 3)
+  {
+    Side1 = a;
+    Side2 = b;
+    Side3 = c;
+  }
+}
+
+class Person
+{
+  // The init keyword is used in place of a setter to show that the value for Name may only be set on object construction.
+  // This however allows the property to be set using object initialisers, not just from within the constructor, as would be the case if
+  // there were no setter.
+  public string? Name { get; init; }
+  public int YearOfBirth { get; init; }
+}
 
 
 //Here we create a class that prints information from a MedicalAppointment object we pass it.
