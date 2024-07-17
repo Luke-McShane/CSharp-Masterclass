@@ -30,6 +30,12 @@ var michael = new Person("Michael")
   YearOfBirth = 1986
 };
 
+// Here we use a static method in a static class to assign a value to a variable. 
+// We cannot create an instance of the Calculator class (var myCalc = new Calculator()) because it is declared static.
+// We can have static methods within non-static classes, but these must be called from the class, not the instance of the class, and
+// these methods must not reference instance data.
+int sum = Calculator.Add(2, 4);
+
 class Rectangle
 {
   // These variables are the fields of the Rectangle class.
@@ -211,10 +217,12 @@ class MedicalAppointment
 // above, because each instance of the class can have its separate fields.
 // Static methods do not have access to instance data, which are the values or fields returned by properties.
 // This is because this data belongs to instances of the class, whereas static methods belong only to the class, not instances of it.
-class Calculator {
-  public int Add(int a, int b) => a + b;
-  public int Subtract(int a, int b) => a - b;
-  public int Multiply(int a, int b) => a * b;
+// As a rule of thumb, any method that doesn't access instance data should be static.
+static class Calculator
+{
+  public static int Add(int a, int b) => a + b;
+  public static int Subtract(int a, int b) => a - b;
+  public static int Multiply(int a, int b) => a * b;
 }
 /*
 An alternative method to procedural programming is object-oriented programming (OOP), which is a paradigm where objects containing data
