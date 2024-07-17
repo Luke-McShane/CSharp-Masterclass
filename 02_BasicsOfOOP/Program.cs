@@ -205,6 +205,17 @@ class MedicalAppointment
     printer.Print(this);
   }
 }
+
+// Without the static modifer, we would have to create an instance of this class just to use its methods.
+// Because it has no fields/properties, it can be called a stateless class. A stateful class would be, for example, the Rectangle class
+// above, because each instance of the class can have its separate fields.
+// Static methods do not have access to instance data, which are the values or fields returned by properties.
+// This is because this data belongs to instances of the class, whereas static methods belong only to the class, not instances of it.
+class Calculator {
+  public int Add(int a, int b) => a + b;
+  public int Subtract(int a, int b) => a - b;
+  public int Multiply(int a, int b) => a * b;
+}
 /*
 An alternative method to procedural programming is object-oriented programming (OOP), which is a paradigm where objects containing data
 and methods play a central role.
