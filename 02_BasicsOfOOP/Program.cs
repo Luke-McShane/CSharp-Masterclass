@@ -1,8 +1,9 @@
 ﻿
 var myRec = new Rectangle();
 System.Console.WriteLine($"Width: {myRec.Width}\nHeight: {myRec.Height}");
-myRec.Width = 3;
-myRec.Height = 2;
+// These two lines of code will no longer work since the fields have been marked readonly.
+// myRec.Width = 3;
+// myRec.Height = 2;
 System.Console.WriteLine($"Width: {myRec.Width}\nHeight: {myRec.Height}");
 
 var appointment = new MedicalAppointment("Dave");
@@ -11,12 +12,44 @@ appointment.Reschedule(8, 12);
 class Rectangle
 {
   // These variables are the fields of the Rectangle class.
-  public int Width, Height;
+  // The readonly modifier ensures that these variables can be set only in either the declaration of them or in the constructor.
+  // Having all fields immutable makes the object immutable, which can make for simpler code as you know that, when passing objects
+  // around, their data will be unable to be changed.
+  // The readonly keyword also protects fields from being changed when we know we don't want them to be changed after object initialisation.
+  // A readonly field can be assigned multiple times in the field declaration and in any constructor. Therefore, readonly fields can have 
+  // different values depending on the constructor used.
+  // Even if private, all reeadonly fields should be upper camel case.
+  public readonly int Width, Height;
   public Rectangle() { }
   public Rectangle(int w, int h)
   {
-    Width = w;
-    Height = h;
+    // The nameof expression returns the string literal name of the variable, type, or member.
+    // This is useful as, if we change the name of a variable, and we want to print the name of the variable to the user, then we will
+    // be informed at compile time that we need to change what we print to the user, since the compiler will not throw an error if we
+    // are just printing a string.
+    // Also, nameof can be used to know what to print to the user when throwing exceptions, as we can print the exact name of whatever
+    // threw the exception, and will be informed of changes needed to be made at compile time.
+    Width = ValidateRectangle(w, nameof(Width));
+    Height = ValidateRectangle(h, nameof(Height));
+  }
+
+  private int ValidateRectangle(int length, string name)
+  {
+    // The const keyword is used, similarly to readonly, to make a variable immutable, but must be used at time of declaration, and must
+    // be given a compile-time constant, so that the compiler can evaluate the value before the program is run.
+    // So we could give it a value such as 5*5 but not ReturnRectangleNumber() or something, as that would be calculated at run time.
+    // This means we must know the value of the const at compile time.
+    // This int may be marked const as we know it will also be 1 and we know this value at compile time.
+    // We cannot use var or any other implicit type with const, as we need to declare exactly what the variable and value is.
+    // Even if private, all const fields should be upper camel case.
+    const int DefaultValue = 1;
+
+    if (length <= 0)
+    {
+      length = DefaultValue;
+      System.Console.WriteLine($"{name} must be a positive number.");
+    }
+    return length;
   }
 
   // Names of methods should *always* start with a verb.
@@ -64,6 +97,16 @@ class MedicalAppointment
     // _patientName = patientName;
     // _date = DateTime.Now.AddDays(7);
   }
+
+  // Another way we can declare a constructor is by using optional parameters, which we can implement with the '=' sign.
+  // Optional parameters should be added after mandatory parameters. Also, if we have multiple optional parameters, and we only want to
+  // provide some of them, we must provide all preceding optional parameters.
+  // This constructor will be called on the following object initialisations:
+  // MedicalAppointMent(); MedicalAppointment("Dave"); MedicalAppointment("Dave", 21); 
+  // public MedicalAppointment(string patientName = "Unknown", int daysFromNow = 7) { 
+  //    _patientName = patientName;
+  //    _date = DateTime.Now.AddDays(daysFromNow)
+  // }
 
   public MedicalAppointment(string patientName, int daysFromNow)
   {
