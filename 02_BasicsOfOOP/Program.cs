@@ -2,6 +2,13 @@
 var myRec = new Rectangle();
 System.Console.WriteLine($"Width: {myRec.Width}\nHeight: {myRec.Height}");
 
+System.Console.WriteLine($"Number of triangles: {Rectangle.CountOfTriangles}");
+
+// Because we create a new rectangle here, a constructor of the class has been called twice, increased the count of the static property
+// CountOfTriangles twice.
+var myRec2 = new Rectangle();
+System.Console.WriteLine($"Number of triangles: {Rectangle.CountOfTriangles}");
+
 // Below we could not write "myRec.NumberOfSides" because this field is a const, therefore static, therefore belonging to the class, not any object.
 System.Console.WriteLine($"Number of sides of a rectangle: {Rectangle.NumberOfSides}");
 // These two lines of code will no longer work since the fields have been marked readonly.
@@ -51,10 +58,21 @@ class Rectangle
   // Even if private, all reeadonly fields should be upper camel case.
   public readonly int Width, Height;
 
+  // A static property may be used when we want a single property shared across all instances of the class. This makes sense here,
+  // as we can increase the total count of triangles each time a new triangle object is instantiated.
+  public static int CountOfTriangles { get; private set; }
+
+  private static DateTime _date;
+
   // All const fields are implicitly static, because they can never change. This means they belong to the class, not instances of the class.
   // If we want to reference a const field outside the class, we must reference the class, not the instance of the class.
   public const int NumberOfSides = 4;
-  public Rectangle() { }
+
+  // A static constructor will only ever be called at most *once*. It is called before the first instance is created and before any static members
+  // are referenced. It may not have access modifiers or parameters. We can use the static constructor when one static member depends on the value
+  // of another static member.
+  static Rectangle() { _date = DateTime.Now; }
+  public Rectangle() { ++CountOfTriangles; }
   public Rectangle(int w, int h)
   {
     // The nameof expression returns the string literal name of the variable, type, or member.
@@ -65,6 +83,7 @@ class Rectangle
     // threw the exception, and will be informed of changes needed to be made at compile time.
     Width = ValidateRectangle(w, nameof(Width));
     Height = ValidateRectangle(h, nameof(Height));
+    ++CountOfTriangles;
   }
 
   private int ValidateRectangle(int length, string name)
