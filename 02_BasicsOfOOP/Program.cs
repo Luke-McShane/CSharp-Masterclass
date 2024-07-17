@@ -231,6 +231,20 @@ static class Calculator
   public static int Subtract(int a, int b) => a - b;
   public static int Multiply(int a, int b) => a * b;
 }
+
+public static class NumberToDayOfWeekTranslator
+{
+  // We cannot have a const array, so we use the static readonly modifiers instead.
+  private static readonly string[] daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  public static string Translate(int day)
+  {
+    if (day <= 7 && day >= 1)
+    {
+      return daysOfWeek[day - 1];
+    }
+    else { return "Invalid day of the week"; }
+  }
+}
 /*
 An alternative method to procedural programming is object-oriented programming (OOP), which is a paradigm where objects containing data
 and methods play a central role.
