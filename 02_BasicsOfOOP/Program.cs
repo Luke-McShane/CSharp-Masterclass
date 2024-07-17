@@ -14,10 +14,20 @@ appointment.Reschedule(8, 12);
 // may be used if it is not obvious on object initialisation what properties we are setting. Object initialisers are commonly
 // used alongside a constructor, when the constructor sets the essential fields of the object, and the object initialiser sets
 // non-essential fields or properties of the object. This saves creating many constructors to handle all paramter sets.
+// The takeaway is that object initialisers prevent loads of constructors being created for when we want to set various properties
+// of the constructor upon initialisation.
 var david = new Person
 {
   Name = "David",
   YearOfBirth = 1995
+};
+
+var michael = new Person("Michael")
+{
+  // Here we call the constructor with a single parameter, then initialise the DoB in the object initialiser.
+  // We could define the name here too, and this would overwrite the value set in the constructor because the object initialiser
+  // is run after the constructor.
+  YearOfBirth = 1986
 };
 
 class Rectangle
@@ -118,8 +128,14 @@ class Person
   // The init keyword is used in place of a setter to show that the value for Name may only be set on object construction.
   // This however allows the property to be set using object initialisers, not just from within the constructor, as would be the case if
   // there were no setter.
-  public string? Name { get; init; }
-  public int YearOfBirth { get; init; }
+  // Adding the '= "Unknown"' code sets a defualt value to "Unknown" is nothing is passed 
+  // A property should be used over a method if the computation time is short. If, for example, we had a lot of logic to set a value,
+  // it should be a a method instead.
+  public string Name { get; init; } = "Unknown"; public int YearOfBirth { get; init; }
+
+  public Person() { }
+  // This constructor may be called when passing a single string argument, and we can use an object initliser alongside to set the YearOfBirth  
+  public Person(string name) { Name = name; }
 }
 
 
