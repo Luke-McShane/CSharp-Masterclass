@@ -1,6 +1,9 @@
 ﻿
 var myRec = new Rectangle();
 System.Console.WriteLine($"Width: {myRec.Width}\nHeight: {myRec.Height}");
+
+// Below we could not write "myRec.NumberOfSides" because this field is a const, therefore static, therefore belonging to the class, not any object.
+System.Console.WriteLine($"Number of sides of a rectangle: {Rectangle.NumberOfSides}");
 // These two lines of code will no longer work since the fields have been marked readonly.
 // myRec.Width = 3;
 // myRec.Height = 2;
@@ -47,6 +50,10 @@ class Rectangle
   // different values depending on the constructor used.
   // Even if private, all reeadonly fields should be upper camel case.
   public readonly int Width, Height;
+
+  // All const fields are implicitly static, because they can never change. This means they belong to the class, not instances of the class.
+  // If we want to reference a const field outside the class, we must reference the class, not the instance of the class.
+  public const int NumberOfSides = 4;
   public Rectangle() { }
   public Rectangle(int w, int h)
   {
