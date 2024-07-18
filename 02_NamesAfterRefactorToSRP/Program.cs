@@ -1,4 +1,12 @@
-﻿// Here is an axample of a class that exploits the Single Responsible Principle, which is the first of the SOLID principles.
+﻿// Although other classes are in their own files (which is best practice), we do not need to import them because all types from
+// the same namespace will be able to see each other.
+
+// Namespaces are used to declare a scope that contains a set of related types.
+// Types related to each other should be contained in the same namespace, with others in different, relevant namespaces.
+
+using DataAccess;
+
+// Here is an axample of a class that exploits the Single Responsible Principle, which is the first of the SOLID principles.
 // The SRP states that a class should be responsible for one thing only, or a class should only have one reason to change.
 // This not only makes code implementation easier and clearer, but means that future changes are going to be easier/
 // the codebase will be easier to maintain, for aspects of the program will be split up appropriately/according to this principle.
@@ -38,64 +46,3 @@ else
 Console.WriteLine(string.Join(Environment.NewLine, names.All));
 
 Console.ReadLine();
-
-// A non-static class to store lists of names and add received names/lists of names to its All property.
-public class Names
-{
-  // 'All' property will store all strings to be written to/read from the file
-  public List<string> All { get; } = new List<string>();
-
-  // Validate and add names to the All property.
-  public void AddNames(List<string> names)
-  {
-    foreach (string name in names) { AddName(name); }
-  }
-
-  public void AddName(string name)
-  {
-    if (NameValidator.IsValid(name))
-    {
-      All.Add(name);
-    }
-  }
-}
-
-// This class has methods that follow, very basically, the Repository Patten, as they abstract CRUD (Create, Read, Update, Delete) operations
-// away from the data entities.
-static class StringRepository
-{
-  // The Read method returns a string and takes a list of string, whilst the Write method takes both a string and a last of strings. This
-  // is consistent and clean.
-  public static List<string> Read(string path)
-  {
-    var fileContents = File.ReadAllText(path);
-    return fileContents.Split(Environment.NewLine).ToList();
-
-  }
-  public static void Write(string path, List<string> names) =>
-      File.WriteAllText(path, string.Join(Environment.NewLine, names));
-}
-
-// This class simply validates a string, and needs no instance data within so can be static.
-static class NameValidator
-{
-  static public bool IsValid(string name)
-  {
-    return
-        name.Length >= 2 &&
-        name.Length < 25 &&
-        char.IsUpper(name[0]) &&
-        name.All(char.IsLetter);
-  }
-}
-
-// This class simply stores a method that returns the file path.
-static class BuildFilePath
-{
-  public static string Build()
-  {
-    //we could imagine this is much more complicated
-    //for example that path is provided by the user and validated
-    return "names.txt";
-  }
-}
