@@ -9,7 +9,8 @@ var path = BuildFilePath.Build();
 if (File.Exists(path))
 {
   Console.WriteLine("Names file already exists. Loading names.");
-  StringRepository.Read(path);
+  var stringsFromFile = StringRepository.Read(path);
+  names.AddNames(stringsFromFile);
 }
 else
 {
@@ -24,14 +25,19 @@ else
   Console.WriteLine("Saving names to the file.");
   StringRepository.Write(path, names.All);
 }
-
-Console.WriteLine(string.Join(Environment.NewLine, names));
+Console.WriteLine(string.Join(Environment.NewLine, names.All));
 
 Console.ReadLine();
 
 public class Names
 {
   public List<string> All { get; } = new List<string>();
+
+  public void AddNames(List<string> names)
+  {
+    foreach (string name in names) { AddName(name); }
+  }
+
   public void AddName(string name)
   {
     if (NameValidator.IsValid(name))
@@ -41,9 +47,21 @@ public class Names
   }
 }
 
+class StringRepository
+{
+  public static List<string> Read(string path)
+  {
+    var fileContents = File.ReadAllText(path);
+    return fileContents.Split(Environment.NewLine).ToList();
+
+  }
+  public static void Write(string path, List<string> names) =>
+      File.WriteAllText(path, string.Join(Environment.NewLine, names));
+}
+
 static class NameValidator
 {
-  public static bool IsValid(string name)
+  static public bool IsValid(string name)
   {
     return
         name.Length >= 2 &&
@@ -51,19 +69,6 @@ static class NameValidator
         char.IsUpper(name[0]) &&
         name.All(char.IsLetter);
   }
-}
-
-static class StringRepository
-{
-  private static readonly string Separator = Environment.NewLine;
-  static public void Read(string path)
-  {
-    var fileContents = File.ReadAllText(path);
-    List<string> namesFromFile = fileContents.Split(Separator).ToList();
-  }
-
-  static public void Write(string path, List<string> names) =>
-      File.WriteAllText(path, string.Join(Separator, names));
 }
 
 static class BuildFilePath
