@@ -1,23 +1,36 @@
-﻿System.Console.WriteLine("Dice rolled. Guess what number it shows in 3 tries.");
-string? userGuess = Console.ReadLine();
-bool hasGuesses = true;
+﻿using System.Diagnostics;
+using System.Xml.Schema;
 
-while (hasGuesses)
-{
-  System.Console.WriteLine(ValidateInput.IsValid(userGuess));
-}
-class Dice
-{
-  private readonly int Number { get; }
-  private static readonly Random _rnd = new Random();
+System.Console.WriteLine("Dice rolled. Guess what number it shows in 3 tries.");
 
-  Dice()
+// An enum is a type that defines a set of named constants
+int userGuesses = 3;
+var dice = new Dice();
+string Separator = Environment.NewLine;
+
+while (userGuesses > 0)
+{
+  string? userGuess = Console.ReadLine();
+  int userGuessInt;
+  if (!ValidateInput.IsValid(userGuess, out userGuessInt))
   {
-    Number = _rnd.Next(1, 6);
+    System.Console.WriteLine($"{Separator}Incorrect input{Separator}Enter number:");
+    continue;
   }
+  else if (userGuessInt != dice.Number)
+  {
+    --userGuesses;
+    System.Console.WriteLine($"{Separator}Wrong number{Separator}Enter number:");
+    continue;
+  }
+  else break;
 }
+if (userGuesses > 0) { System.Console.WriteLine($"{Separator}You win"); }
+else { System.Console.WriteLine($"{Separator}You lose"); }
+Console.ReadKey();
 
-class ValidateInput
-{
-  public static bool IsValid(string? input) => int.TryParse(input, out _);
-}
+// class ProcessData {
+//   public static Process(string? userGuess) { 
+
+//   }
+// }
