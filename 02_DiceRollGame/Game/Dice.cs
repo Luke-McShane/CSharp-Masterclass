@@ -10,6 +10,5 @@ class Dice
   {
     _rnd = random;
     Number = _rnd.Next(1, SidesOnDice + 1);
-    System.Console.WriteLine(Number);
   }
 }

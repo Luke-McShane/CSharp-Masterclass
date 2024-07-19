@@ -1,3 +1,5 @@
+using System.Runtime.ConstrainedExecution;
+
 namespace DiceRollGame.GuessingGame;
 
 class GuessingGame
@@ -33,5 +35,11 @@ class GuessingGame
       else break;
     }
     return (triesLeft > 0) ? GameResult.Victory : GameResult.Loss;
+  }
+
+  public void PrintResults(GameResult gameResult)
+  {
+    string message = gameResult == GameResult.Victory ? "You win!" : "You lose!";
+    System.Console.WriteLine(message);
   }
 }
