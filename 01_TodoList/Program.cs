@@ -61,7 +61,7 @@ void SeeAllTodos(List<string> myList)
 
 void AddTodo()
 {
-  string addTodo;
+  string? addTodo;
   do
   {
     Console.WriteLine("Enter the TODO description:");
@@ -72,7 +72,7 @@ void AddTodo()
   Console.WriteLine("TODO successfully added: " + addTodo);
 }
 
-bool ValidateNewTodo(string addTodo)
+bool ValidateNewTodo(string addTodo = "")
 {
   if (addTodo is null || addTodo.Trim() == "")
   {
