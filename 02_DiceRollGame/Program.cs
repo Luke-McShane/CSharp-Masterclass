@@ -3,7 +3,6 @@ using System.Xml.Schema;
 
 System.Console.WriteLine("Dice rolled. Guess what number it shows in 3 tries.");
 
-// An enum is a type that defines a set of named constants
 int userGuesses = 3;
 var dice = new Dice();
 string Separator = Environment.NewLine;

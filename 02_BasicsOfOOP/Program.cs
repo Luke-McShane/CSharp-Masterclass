@@ -264,6 +264,37 @@ public static class NumberToDayOfWeekTranslator
     else { return "Invalid day of the week"; }
   }
 }
+
+// ENUMS
+// An enum is a type that defines a set of named constants. The constants are represented as strings but processed as integers, so they can
+// therefore be cast to the int type.
+// Use enums when you have values that you know aren't going to change. Enums can be used in classes, but enums cannot contain methods,
+// The integers corresponding to each enum may be defined by the user, overriding the classic indexes given (starting at 0).
+
+public enum DaysOfWeek
+{
+  Monday = 1,  
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
+}
+
+public enum HttpCode {
+  Ok = 200,
+  NotFound = 404,
+  InternalServerError = 500
+}
+
+public enum Gospels {
+  GospelOfLuke,
+  GospelOfMatthew,
+  GospelOfMark,
+  GospelOfJohn
+}
+
 /*
 An alternative method to procedural programming is object-oriented programming (OOP), which is a paradigm where objects containing data
 and methods play a central role.
