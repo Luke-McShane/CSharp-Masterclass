@@ -1,6 +1,6 @@
 public class BaseClass
 {
-  public void Method1()
+  public virtual void Method1()
   {
     System.Console.WriteLine("Base - Method 1");
   }
@@ -13,7 +13,7 @@ public class BaseClass
 
 public class DerivedClass : BaseClass
 {
-  public new void Method1()
+  public override void Method1()
   {
     System.Console.WriteLine("Derived - Method 1");
   }
@@ -40,3 +40,10 @@ public static class PolymorphismPractise
     bcdc.Method2();
   }
 }
+
+// When a method is called on some specific type (Baseclass in bcdc, for example), the C# engine first checks if this method is virtual. 
+// If not, it simply calls the method it finds in the type of the variable. So for bcdc, because it is of type BaseClass and Method1 
+// is not virtual, it will simply call this method because it is not expecting it to be overridden.
+// If it does find that the method is virtual, then it will check the actual type (DerivedClass for bcdc) for the overriding method, and
+// call this if it does indeed override the inherited method for the generic type. If no overriding method is found (the 'override' keyword
+// MUST be used - having a method named the same will not suffice) then the virtual method will be called.
