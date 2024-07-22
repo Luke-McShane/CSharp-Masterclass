@@ -1,26 +1,50 @@
+using System.Data;
+using Microsoft.VisualBasic;
+
 public class BaseClass
 {
+  public static int X { get; } = 55;
   public virtual void Method1()
   {
     System.Console.WriteLine("Base - Method 1");
   }
 
-  public void Method2()
+  public virtual void Method2()
   {
     System.Console.WriteLine("Base - Method 2");
+  }
+
+  public void Method3()
+  {
+    System.Console.WriteLine("Base - Method 3");
   }
 }
 
 public class DerivedClass : BaseClass
 {
+  // The new keyword makes the compiler aware that this is a new instance of the X variable, and hides the original definition.
+  public new static int X { get; } = 100;
   public override void Method1()
   {
     System.Console.WriteLine("Derived - Method 1");
   }
 
-  public new void Method2()
+  public void Method2()
   {
     System.Console.WriteLine("Derived - Method 2");
+  }
+
+  public new void Method3()
+  {
+    System.Console.WriteLine("Derived - Method 3");
+  }
+
+  public void WriteX()
+  {
+    // Here we can access the definition of X as defined in the derived class (100), using the new keyword. We can also access the
+    // inherited definition of X, but we must specify this by referencing the base class.
+    System.Console.WriteLine(X);
+    System.Console.WriteLine(BaseClass.X);
   }
 }
 
@@ -34,10 +58,22 @@ public static class PolymorphismPractise
 
     bc.Method1();
     bc.Method2();
+    bc.Method3();
+
+    System.Console.WriteLine();
+
     dc.Method1();
     dc.Method2();
+    dc.Method3();
+    dc.WriteX();
+
+    System.Console.WriteLine();
+
+    // The inherited class has two virtual methods, but since the derived class only has one overriden method, only this method will be run from
+    // the derived class.
     bcdc.Method1();
     bcdc.Method2();
+    bcdc.Method3();
   }
 }
 
