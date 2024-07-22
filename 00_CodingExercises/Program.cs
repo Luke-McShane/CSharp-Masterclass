@@ -1,4 +1,4 @@
-﻿CSharpFundementalExercises.Entry();
+﻿PolymorphismInheritanceInterfacesExerices.Entry();
 
 
 /*
