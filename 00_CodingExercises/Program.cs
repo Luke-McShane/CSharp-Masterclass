@@ -1,4 +1,5 @@
-﻿PolymorphismInheritanceInterfacesExerices.Entry();
+﻿// PolymorphismInheritanceInterfacesExerices.Entry();
+PolymorphismPractise.Entry();
 
 
 /*
