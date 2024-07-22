@@ -1,5 +1,7 @@
 ﻿// PolymorphismInheritanceInterfacesExerices.Entry();
-PolymorphismPractise.Entry();
+// PolymorphismPractise.Entry();
+var poly = new PolymorphismPractiseContinued();
+poly.Entry();
 
 
 /*
