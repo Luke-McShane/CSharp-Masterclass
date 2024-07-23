@@ -5,9 +5,11 @@ public class PolymorphismInheritanceInterfacesExerices
   public static void Entry()
   {
     Pizza pizza = new Pizza();
-    pizza.AddIngredients(new Tomato());
-    pizza.AddIngredients(new Cheddar());
-    pizza.AddIngredients(new Mozzarella());
+    pizza.AddIngredients(new Tomato(1));
+    pizza.AddIngredients(new Cheddar(1));
+    pizza.AddIngredients(new Mozzarella(2));
+
+    System.Console.WriteLine(pizza.Describe());
 
     // System.Console.WriteLine(pizza.Describe());
 
@@ -44,7 +46,6 @@ public class Ingredient
 
   public Ingredient(int priceIfExtraTopping)
   {
-    Console.WriteLine("Ingredient/Base Class Constructor");
     PriceIfExtraTopping = priceIfExtraTopping;
   }
 
@@ -61,7 +62,6 @@ public class Cheese : Ingredient
 {
   public Cheese(int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    System.Console.WriteLine("Cheese Class Constructor");
   }
 }
 
@@ -85,9 +85,9 @@ class Cheddar : Cheese
 {
   public Cheddar(int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    System.Console.WriteLine("Cheddar Class Constructor");
+    Name = "Cheddar Cheese";
   }
-  public new static string Name => "Cheddar Cheese";
+
   public int AgedForMonths { get; }
 }
 
