@@ -1,6 +1,6 @@
 using System;
 
-namespace Coding.Exercise
+namespace Coding.Animal
 {
   public class Exercise
   {
