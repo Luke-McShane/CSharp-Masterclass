@@ -9,15 +9,15 @@ public class PolymorphismInheritanceInterfacesExerices
     pizza.AddIngredients(new Cheddar());
     pizza.AddIngredients(new Mozzarella());
 
-    System.Console.WriteLine(pizza.Describe());
+    // System.Console.WriteLine(pizza.Describe());
 
     // Here we can see that the Name value for the object of type Cheddar (as opposed to type ingredient) has overrident the inherited Name
     // property of the object of type Ingredient.
-    Cheddar cheddar = new Cheddar();
-    Ingredient ingredient = new Cheddar();
+    // Cheddar cheddar = new Cheddar();
+    // Ingredient ingredient = new Cheddar();
 
-    System.Console.WriteLine(cheddar.Name);
-    System.Console.WriteLine(ingredient.Name);
+    // System.Console.WriteLine(cheddar.Name);
+    // System.Console.WriteLine(ingredient.Name);
 
     // The below code doesn't work because the 'ingredient' object is of type ingredient, and the AgedForMonths property exists only in the
     // cheddar class. Although we can create the ingredient (because it inherits from Ingredient), we cannot access Cheddar-specific members.
@@ -27,7 +27,6 @@ public class PolymorphismInheritanceInterfacesExerices
 
 public class Pizza
 {
-
   private List<Ingredient> _ingredients = new List<Ingredient>();
   public string Describe() => $"This is a pizza with {string.Join(", ", _ingredients)}";
 
@@ -42,32 +41,63 @@ public class Pizza
 public class Ingredient
 {
   public string Name { get; init; } = "Some ingredient";
+
+  public Ingredient(int priceIfExtraTopping)
+  {
+    Console.WriteLine("Ingredient/Base Class Constructor");
+    PriceIfExtraTopping = priceIfExtraTopping;
+  }
+
+  public override string ToString() => Name;
+
+  public int PriceIfExtraTopping { get; }
+
   public string PublicMethod() => "This is a PUBLIC method meaning all derived classes and non-derived classes can access it.";
   private string PrivateMethod() => "This is a PRIVATE method meaning it can only be access within the base class, i.e. this class.";
   protected string ProtectedMethod() => "This is a PROTECTED method meaning it can be accessed within the base *and* derived classes.";
+}
+
+public class Cheese : Ingredient
+{
+  public Cheese(int priceIfExtraTopping) : base(priceIfExtraTopping)
+  {
+    System.Console.WriteLine("Cheese Class Constructor");
+  }
 }
 
 class Tomato : Ingredient
 {
   // public string Name => "Tomato Sauce";
   public int NumberIn100Grams { get; init; }
-  public Tomato() { }
+  public Tomato(int priceIfExtraTopping) : base(priceIfExtraTopping)
+  {
+    Name = "Tomato Sauce";
+  }
 
-  public Tomato(string name, int tomatoes)
+  public Tomato(string name, int tomatoes, int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
     Name = name;
     NumberIn100Grams = tomatoes;
   }
 }
 
-class Cheddar : Ingredient
+class Cheddar : Cheese
 {
-  public string Name => "Cheddar Cheese";
+  public Cheddar(int priceIfExtraTopping) : base(priceIfExtraTopping)
+  {
+    System.Console.WriteLine("Cheddar Class Constructor");
+  }
+  public new static string Name => "Cheddar Cheese";
   public int AgedForMonths { get; }
 }
 
-class Mozzarella : Ingredient
+class Mozzarella : Cheese
 {
   // public string Name => "Mozzarella";
   public bool IsLight { get; }
+
+  public Mozzarella(int priceIfExtraTopping) : base(priceIfExtraTopping)
+  {
+    Name = "Mozzarella Cheese";
+  }
 }
