@@ -4,12 +4,33 @@ public class PolymorphismInheritanceInterfacesExerices
 {
   public static void Entry()
   {
-    Pizza pizza = new Pizza();
-    pizza.AddIngredients(new Tomato(1));
-    pizza.AddIngredients(new Cheddar(1));
-    pizza.AddIngredients(new Mozzarella(2));
+    // Pizza pizza = new Pizza();
+    // pizza.AddIngredients(new Tomato(1));
+    // pizza.AddIngredients(new Cheddar(1));
+    // pizza.AddIngredients(new Mozzarella(2));
 
-    System.Console.WriteLine(pizza.Describe());
+    // This is called upcasting, which is what happens when we assign an object of a derived type to a base type.
+    // Downcasting is when we assign an object of a base type to a derived type.
+    Ingredient cheddar = new Cheddar(12, 1);
+    System.Console.WriteLine(cheddar);
+
+    // Using the 'is' operator to return a boolean after evaluating a condition.
+    System.Console.WriteLine("is object? " + (cheddar is object));
+    System.Console.WriteLine("is object? " + (cheddar is Ingredient));
+    System.Console.WriteLine("is object? " + (cheddar is Cheddar));
+    System.Console.WriteLine("is object? " + (cheddar is Mozzarella));
+    System.Console.WriteLine("is object? " + (cheddar is Tomato));
+
+
+    Ingredient ingredient = new Cheddar(1);
+    // Here we are downcasting, which is converting a base type to a derived type, which is created here.
+    // This statement is saying "If the ingredient variable is of type Cheddar, then enter the if statement
+    // creating a Cheddar object called cheddar1. This object will only be accessible within this statement.
+    // We could explicitly cast this instead by saying: "Cheddar cheddar1 = Cheddar(ingredient);"
+    if (ingredient is Cheddar cheddar1)
+    {
+      System.Console.WriteLine("Ingredient is cheddar: " + cheddar1);
+    }
 
     // System.Console.WriteLine(pizza.Describe());
 
@@ -42,7 +63,7 @@ public class Pizza
 // The base class is the class whose members are inherited. The derived classes are those that inherit these members.
 public class Ingredient
 {
-  public string Name { get; init; } = "Some ingredient";
+  public virtual string Name { get; init; } = "Some ingredient";
 
   public Ingredient(int priceIfExtraTopping)
   {
@@ -67,28 +88,32 @@ public class Cheese : Ingredient
 
 class Tomato : Ingredient
 {
-  // public string Name => "Tomato Sauce";
   public int NumberIn100Grams { get; init; }
   public Tomato(int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    Name = "Tomato Sauce";
   }
 
-  public Tomato(string name, int tomatoes, int priceIfExtraTopping) : base(priceIfExtraTopping)
+  public Tomato(int tomatoes, int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    Name = name;
     NumberIn100Grams = tomatoes;
   }
+  public override string Name => $"{base.Name}, more specifically, a tomato sauce, with {NumberIn100Grams} tomatoes per 100grams.";
+
 }
 
 class Cheddar : Cheese
 {
   public Cheddar(int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    Name = "Cheddar Cheese";
+  }
+
+  public Cheddar(int agedForMonths, int priceIfExtraTopping) : base(priceIfExtraTopping)
+  {
+    AgedForMonths = agedForMonths;
   }
 
   public int AgedForMonths { get; }
+  public override string Name => $"{base.Name}, more specifically, a cheddar cheese, aged for {AgedForMonths} months.";
 }
 
 class Mozzarella : Cheese
@@ -98,6 +123,6 @@ class Mozzarella : Cheese
 
   public Mozzarella(int priceIfExtraTopping) : base(priceIfExtraTopping)
   {
-    Name = "Mozzarella Cheese";
   }
+  public override string Name => $"{base.Name}, more specifically, a mozzarella cheese.";
 }

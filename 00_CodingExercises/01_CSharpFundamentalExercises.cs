@@ -235,3 +235,24 @@ bool isSecondInt = Int.TryParse(myInput2, out int result2);
 isFirstInt will be true; isSecondInt will be false.
 result1 will be initialised to 34; result2 will be initialised to 0.
 */
+
+/*
+IMPLICIT CONVERSION
+
+Implicit conversion can only happen if conversion from one type to another is safe and lossless.
+For example:
+
+int integer = 10;
+decimal x = integer;
+
+This workss because the decimal type will always be able to store the integer type, and there is no risk here, and we can implicitly
+convert one type to the other.
+
+decimal d = 10.01m;
+int i = int(d); <-- this is explicit casting, because we are losing information from the decimal, and the compiler will therefore not
+convert it for us implicitly.
+
+decimal large = 100000000000000000000.01m
+int unsafe = int(large); <-- this is an unsafe conversion, and will cause a runtime crash, because this number is over the maximum
+size integer that can be stored in the int type, although the decimal type can store it fine.
+*/
