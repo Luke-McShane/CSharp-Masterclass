@@ -1,4 +1,10 @@
-﻿PolymorphismInheritanceInterfacesExerices.Entry();
+﻿// PolymorphismInheritanceInterfacesExerices.Entry();
+using Coding.Exercise;
+
+System.Console.WriteLine(1d.GetType());
+Console.WriteLine(NumericTypesDescriber.DescribeObject(1d));
+
+
 // PolymorphismPractise.Entry();
 // using Coding.Animal;
 // using Coding.StringProcessor;
