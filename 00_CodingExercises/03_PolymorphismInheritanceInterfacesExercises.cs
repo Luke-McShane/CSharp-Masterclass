@@ -149,7 +149,12 @@ class Cheddar : Cheese
   }
 }
 
-class Mozzarella : Cheese
+// Sealing a class means that we cannot derive from this class. So if we wanted to create a new class that inherits from Mozzarella, we
+// would no longer be able to do it. This is mainly used by coders for design purposes and to show the coders intention. Classes should not
+// be sealed unless we are absolutely certain that we know what we are doing.
+// Methods or properties that override virtual methods or properties may also be overridden to prevent classes that inherit from this class
+// to override those sealed methods or properties. Sealing a method or property makes it explicit that the overriding stops there.
+sealed class Mozzarella : Cheese
 {
   // public string Name => "Mozzarella";
   public bool IsLight { get; }
@@ -167,7 +172,13 @@ class Mozzarella : Cheese
 
 /*
 VIRTUAL vs ABSTRACT Methods
-Virtual methods must have an implementation, and may or may not be overriden.
+- Virtual methods must have an implementation, and may or may not be overriden.
+- Abstract methods cannot have an implementation, and must be overrident.
+*/
 
-Abstract methods cannot have an implementation, and must be overrident.
+/*
+Static classes are automatically sealed because they can only contain statid methods, and static methods are sealed because they cannot be
+overridden, and this is because overriding is used when we want a specific implementation of a method on a specific instance.
+So, for example, we could have various Ingredient types that hold Mozzarella, Cheddar, and Tomato variables, and we would want the base
+field Name to be virtual and overridden as we want to have more specific data when creating instances of derived classes.
 */
