@@ -4,10 +4,21 @@ public class PolymorphismInheritanceInterfacesExerices
 {
   public static void Entry()
   {
-    // Pizza pizza = new Pizza();
-    // pizza.AddIngredients(new Tomato(1));
-    // pizza.AddIngredients(new Cheddar(1));
-    // pizza.AddIngredients(new Mozzarella(2));
+
+    // If we did not add the abstract method Prepare in the abstract Ingredient class, and we only added the Prepare method manually in
+    // each derived class, then the foreach loop below would not work as each variable is of type ingredient, and there would be no Prepare
+    // method to be found. But since we make add it as an abstract method, the compiler knows to check the relevant derive type for the definition.
+    List<Ingredient> ingredients = new List<Ingredient>
+    {
+      new Cheddar(1, 12),
+      new Mozzarella(2),
+      new Tomato(1, 100)
+    };
+
+    foreach (Ingredient ingredientItem in ingredients)
+    {
+      ingredientItem.Prepare();
+    }
 
     // This is called upcasting, which is what happens when we assign an object of a derived type to a base type.
     // Downcasting is when we assign an object of a base type to a derived type.
@@ -112,6 +123,10 @@ class Tomato : Ingredient
   }
   public override string Name => $"{base.Name}, more specifically, a tomato sauce, with {NumberIn100Grams} tomatoes per 100grams.";
 
+  public override void Prepare()
+  {
+    throw new NotImplementedException();
+  }
 }
 
 class Cheddar : Cheese
@@ -127,6 +142,11 @@ class Cheddar : Cheese
 
   public int AgedForMonths { get; }
   public override string Name => $"{base.Name}, more specifically, a cheddar cheese, aged for {AgedForMonths} months.";
+
+  public override void Prepare()
+  {
+    throw new NotImplementedException();
+  }
 }
 
 class Mozzarella : Cheese
@@ -139,10 +159,10 @@ class Mozzarella : Cheese
   }
   public override string Name => $"{base.Name}, more specifically, a mozzarella cheese.";
 
-    public override void Prepare()
-    {
-        throw new NotImplementedException();
-    }
+  public override void Prepare()
+  {
+    throw new NotImplementedException();
+  }
 }
 
 /*
