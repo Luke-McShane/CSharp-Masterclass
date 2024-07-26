@@ -1,11 +1,16 @@
 ﻿// PolymorphismInheritanceInterfacesExerices.Entry();
 using Coding.Exercise;
 using Practise;
-
-System.Console.WriteLine(1d.GetType());
+var myList = new List<int> { 1, 5, 10, 8, 12, 4, 5 };
+var result = myList.TakeEverySecond();
+foreach (int item in result)
+{
+  System.Console.WriteLine(item);
+}
+// System.Console.WriteLine(1d.GetType());
 // Console.WriteLine(NumericTypesDescriber.DescribeObject(1d));
 
-Practise.Entry.Main();
+// Practise.Entry.Main();
 
 
 // PolymorphismPractise.Entry();
