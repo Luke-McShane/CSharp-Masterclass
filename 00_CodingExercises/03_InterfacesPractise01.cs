@@ -55,6 +55,35 @@ namespace Coding.Exercise
   {
     public int Transform(int val) => val * val;
   }
-
-
 }
+
+/*
+INTERFACES
+- Used for abstraction over behaviour, over what behaviour is common across all inheriting classes.
+- Should be used to define what classes can do, not what they are.
+- Verbs, not nouns.
+- E.g.: Vans, tractors, and cars are driveable.
+- Does not provide any implementations of its own.
+- Specifies a contract that the implementing method must fulfill. When you specifiy an interface, you're stating what the implementing classes
+must fulfil.
+- All methods are implicitly public.
+- Methods cannot be sealed or static.
+- Methods are implicitly virtual.
+- Can only contain method or property signatures.
+- A class can implement multiple interfaces.
+*/
+
+/*
+ABSTRACT CLASSES
+- Used for abstraction over alikeness, over what similarities exist between the inheriting classes themselves.
+- Should be used to help define what classes are, not their behaviours.
+- Nouns, not verbs.
+- E.g.: Ford, Skoda, and BMW are all examples of cars.
+- Can provide any implementation of its own.
+- Only abstract methods must be overridden in the derived types.
+- Non-abstract methods can have any access modifiers.
+- Can contain sealed and static methods.
+- Non-abstract methods are not implicitly virtual.
+- Can also have implementations, fields and constructors.
+- A class cannot inherit from multiple classes.
+*/
