@@ -1,12 +1,21 @@
 ﻿// PolymorphismInheritanceInterfacesExerices.Entry();
+// using Coding.Exercise;
+// using Practise;
+// var myList = new List<int> { 1, 5, 10, 8, 12, 4, 5 };
+// var result = myList.TakeEverySecond();
+// foreach (int item in result)
+
+// System.Console.WriteLine(item);
+
 using Coding.Exercise;
-using Practise;
-var myList = new List<int> { 1, 5, 10, 8, 12, 4, 5 };
-var result = myList.TakeEverySecond();
-foreach (int item in result)
-{
-  System.Console.WriteLine(item);
-}
+
+Console.WriteLine($"Input: 5. Output: {Interfaces.Transform(12)}");
+Console.WriteLine($"Input: 4. Output: {Interfaces.Transform(4)}");
+Console.WriteLine($"Input: -1. Output: {Interfaces.Transform(-1)}");
+Console.WriteLine($"Input: 0. Output: {Interfaces.Transform(0)}");
+Console.WriteLine($"Input: 1. Output: {Interfaces.Transform(1)}");
+
+
 // System.Console.WriteLine(1d.GetType());
 // Console.WriteLine(NumericTypesDescriber.DescribeObject(1d));
 
