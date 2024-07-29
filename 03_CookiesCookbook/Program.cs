@@ -91,8 +91,13 @@ public static class FileManipulator
     System.Console.WriteLine(ingredient.Id);
     System.Console.WriteLine(ingredient.Name);
     System.Console.WriteLine(ingredient.PreparationInstructions);
-    var asJson = JsonSerializer.Serialize(ingredient);
-    System.Console.WriteLine("As JSON: " + asJson);
+    if (fileType == FileType.Json)
+    {
+      var asJson = JsonSerializer.Serialize(ingredient);
+      System.Console.WriteLine("As JSON: " + asJson);
+    } else {
+      var asTxt = {}
+    }
   }
 
   public static void ReadFromFile()
