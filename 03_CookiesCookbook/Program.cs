@@ -14,7 +14,7 @@ Recipe.Create();
 
 public static class Recipe
 {
-  private const FileType fileType = FileType.Json;
+  private const FileType fileType = FileType.json;
 
   public static void Create()
   {
@@ -22,7 +22,7 @@ public static class Recipe
 
     Ingredients ingredient;
     Ingredient toBeAdded;
-
+    List<Ingredient> ingredients = new List<Ingredient>();
     do
     {
       Console.WriteLine("Add an ingredient by its ID or type anything else if finished.");
@@ -36,42 +36,42 @@ public static class Recipe
         {
           case Ingredients.Wheat_flour:
             toBeAdded = new WheatFlour();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new WheatFlour());
             break;
 
           case Ingredients.Coconut_flour:
             toBeAdded = new CoconutFlour();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new CoconutFlour());
             break;
 
           case Ingredients.Butter:
             toBeAdded = new Butter();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new Butter());
             break;
 
           case Ingredients.Chocolate:
             toBeAdded = new Chocolate();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new Chocolate());
             break;
 
           case Ingredients.Sugar:
             toBeAdded = new Sugar();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new Sugar());
             break;
 
           case Ingredients.Cardamon:
             toBeAdded = new Cardamon();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new Cardamon());
             break;
 
           case Ingredients.Cinnamon:
             toBeAdded = new Cinnamon();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new Cinnamon());
             break;
 
           case Ingredients.Cocoa_powder:
             toBeAdded = new CocoaPowder();
-            FileManipulator.WriteToFile(toBeAdded, fileType);
+            ingredients.Add(new CocoaPowder());
             break;
 
           default:
@@ -81,23 +81,35 @@ public static class Recipe
       }
       else { addIngredients = false; }
     } while (addIngredients);
+    if (ingredients.Count >= 1)
+    {
+      FileManipulator.WriteToFile(ingredients, fileType);
+    }
   }
 }
 
 public static class FileManipulator
 {
-  public static void WriteToFile(Ingredient ingredient, FileType fileType)
+  public static void WriteToFile(List<Ingredient> ingredients, FileType fileType)
   {
-    System.Console.WriteLine(ingredient.Id);
-    System.Console.WriteLine(ingredient.Name);
-    System.Console.WriteLine(ingredient.PreparationInstructions);
-    if (fileType == FileType.Json)
+    // List<int> toWriteToFile = new List<int>();
+    int[] toWriteToFile = new int[ingredients.Count];
+    string asJson = "";
+    foreach (Ingredient ingredient in ingredients)
     {
-      var asJson = JsonSerializer.Serialize(ingredient);
-      System.Console.WriteLine("As JSON: " + asJson);
-    } else {
-      var asTxt = {}
+      // System.Console.WriteLine(ingredient.Id);
+      toWriteToFile[ingredient.Id - 1] = ingredient.Id;
+
     }
+    if (fileType == FileType.json)
+    {
+      asJson += JsonSerializer.Serialize(toWriteToFile);
+    }
+    else
+    {
+      // var asTxt = {}
+    }
+    File.AppendAllText($"Recipes.{fileType}", asJson + Environment.NewLine);
   }
 
   public static void ReadFromFile()
@@ -178,6 +190,6 @@ public enum Ingredients
 
 public enum FileType
 {
-  Txt,
-  Json
+  txt,
+  json
 }
