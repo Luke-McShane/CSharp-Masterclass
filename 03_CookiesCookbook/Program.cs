@@ -1,62 +1,77 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography;
+using System.Text.Json;
 
 var newline = Environment.NewLine;
 
 Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
 Console.WriteLine(@$"1. Wheat flour{newline}2. Cocounut flour{newline}3. Butter{newline}4. Chocolate 
-                     5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
+5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
+Recipe.Create();
 
-public class Recipe
+public static class Recipe
 {
+  private const FileType fileType = FileType.Json;
 
-  public void Create()
+  public static void Create()
   {
     bool addIngredients = true;
+
     Ingredients ingredient;
     Ingredient toBeAdded;
 
     do
     {
       Console.WriteLine("Add an ingredient by its ID or type anything else if finished.");
-      var input = Console.ReadKey().ToString();
+      string? input = Console.ReadLine();
+      System.Console.WriteLine("Input: " + input);
       if (int.TryParse(input, out int result) && result <= 8 && result >= 1)
       {
         ingredient = (Ingredients)result - 1;
+        System.Console.WriteLine("Ingredient: " + ingredient);
         switch (ingredient)
         {
           case Ingredients.Wheat_flour:
             toBeAdded = new WheatFlour();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Coconut_flour:
             toBeAdded = new CoconutFlour();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Butter:
             toBeAdded = new Butter();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Chocolate:
             toBeAdded = new Chocolate();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Sugar:
             toBeAdded = new Sugar();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Cardamon:
             toBeAdded = new Cardamon();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Cinnamon:
             toBeAdded = new Cinnamon();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           case Ingredients.Cocoa_powder:
             toBeAdded = new CocoaPowder();
+            FileManipulator.WriteToFile(toBeAdded, fileType);
             break;
 
           default:
@@ -64,7 +79,25 @@ public class Recipe
         }
 
       }
+      else { addIngredients = false; }
     } while (addIngredients);
+  }
+}
+
+public static class FileManipulator
+{
+  public static void WriteToFile(Ingredient ingredient, FileType fileType)
+  {
+    System.Console.WriteLine(ingredient.Id);
+    System.Console.WriteLine(ingredient.Name);
+    System.Console.WriteLine(ingredient.PreparationInstructions);
+    var asJson = JsonSerializer.Serialize(ingredient);
+    System.Console.WriteLine("As JSON: " + asJson);
+  }
+
+  public static void ReadFromFile()
+  {
+
   }
 }
 
@@ -136,5 +169,10 @@ public enum Ingredients
   Cardamon,
   Cinnamon,
   Cocoa_powder
+}
 
+public enum FileType
+{
+  Txt,
+  Json
 }
