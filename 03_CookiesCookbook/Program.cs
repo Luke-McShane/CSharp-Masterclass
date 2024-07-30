@@ -10,7 +10,8 @@ var newline = Environment.NewLine;
 Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
 Console.WriteLine(@$"1. Wheat flour{newline}2. Cocounut flour{newline}3. Butter{newline}4. Chocolate 
 5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
-Recipe.Create();
+if (File.Exists(''))
+  Recipe.Create();
 
 public static class Recipe
 {
@@ -19,10 +20,17 @@ public static class Recipe
   public static void Create()
   {
     bool addIngredients = true;
+    string recipesFile = $"Recipes.{fileType}";
 
     Ingredients ingredient;
     Ingredient toBeAdded;
     List<Ingredient> ingredients = new List<Ingredient>();
+
+    if (File.Exists(recipesFile))
+    {
+      FileManipulator.ReadFromFile(recipesFile);
+    }
+
     do
     {
       Console.WriteLine("Add an ingredient by its ID or type anything else if finished.");
@@ -92,29 +100,22 @@ public static class FileManipulator
 {
   public static void WriteToFile(List<Ingredient> ingredients, FileType fileType)
   {
-    // List<int> toWriteToFile = new List<int>();
-    int[] toWriteToFile = new int[ingredients.Count];
-    string asJson = "";
+    int[] toWriteToFileArr = new int[ingredients.Count];
+    string toWriteToFileString = "";
     foreach (Ingredient ingredient in ingredients)
     {
-      // System.Console.WriteLine(ingredient.Id);
-      toWriteToFile[ingredient.Id - 1] = ingredient.Id;
+      toWriteToFileArr[ingredient.Id - 1] = ingredient.Id;
+    }
+    toWriteToFileString = fileType == FileType.json
+                        ? toWriteToFileString + JsonSerializer.Serialize(toWriteToFileArr)
+                        : toWriteToFileString += toWriteToFileArr;
 
-    }
-    if (fileType == FileType.json)
-    {
-      asJson += JsonSerializer.Serialize(toWriteToFile);
-    }
-    else
-    {
-      // var asTxt = {}
-    }
-    File.AppendAllText($"Recipes.{fileType}", asJson + Environment.NewLine);
+    File.AppendAllText($"Recipes.{fileType}", toWriteToFileString + Environment.NewLine);
   }
 
-  public static void ReadFromFile()
+  public static void ReadFromFile(string file)
   {
-
+    Console.WriteLine(File.ReadAllText(file));
   }
 }
 
