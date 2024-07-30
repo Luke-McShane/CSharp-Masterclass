@@ -23,8 +23,7 @@ public static class Recipe
   {
     bool addIngredients = true;
     string recipesFile = $"Recipes.{fileType}";
-    FileManipulator.ReadFromFile(recipesFile);
-    return;
+
     Ingredients ingredient;
     Ingredient toBeAdded;
     List<Ingredient> ingredients = new List<Ingredient>();
@@ -103,6 +102,8 @@ public class CreateObjectFromEnum
 {
   public Ingredient? GetIngredient(Ingredients ingredient)
   {
+
+    System.Console.WriteLine("INGREDIENT: " + Type.GetType(ingredient.ToString()));
     return (Ingredient?)Activator.CreateInstance(Type.GetType(ingredient.ToString()));
   }
 }
@@ -112,16 +113,19 @@ public static class FileManipulator
   public static void WriteToFile(List<Ingredient> ingredients, FileType fileType)
   {
     int[] toWriteToFileArr = new int[ingredients.Count];
+    System.Console.WriteLine(toWriteToFileArr.Length);
     string toWriteToFileString = "";
-    foreach (Ingredient ingredient in ingredients)
+    for (int i = 0; i < ingredients.Count; ++i)
     {
-      toWriteToFileArr[ingredient.Id - 1] = ingredient.Id;
+      Ingredient ingredient = ingredients[i];
+
+      toWriteToFileArr[i] = ingredient.Id;
     }
     toWriteToFileString = fileType == FileType.json
                         ? toWriteToFileString + JsonSerializer.Serialize(toWriteToFileArr)
                         : toWriteToFileString += toWriteToFileArr;
 
-    File.AppendAllText($"Recipes.{fileType}", toWriteToFileString + Environment.NewLine);
+    File.AppendAllText($"Recipes.{fileType}", Environment.NewLine + toWriteToFileString);
   }
 
   public static void ReadFromFile(string file)
@@ -137,7 +141,7 @@ public static class FileManipulator
       {
         var enmumCov = new CreateObjectFromEnum();
         bool whichIngredient = int.TryParse(ingredient, out result);
-        Ingredient newIng = enmumCov.GetIngredient((Ingredients)result);
+        Ingredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
         System.Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
       }
       System.Console.WriteLine();
