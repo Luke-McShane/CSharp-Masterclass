@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var newline = Environment.NewLine;
 
@@ -125,22 +126,23 @@ public static class FileManipulator
 
   public static void ReadFromFile(string file)
   {
+    int result;
     string[] lines = File.ReadAllLines(file);
-    foreach (string line in lines)
+    for (int i = 0; i < lines.Length; ++i)
     {
-      string[] ingredients = line.Split(',');
+      System.Console.WriteLine($"*****{i + 1}*****");
+      string line = lines[i];
+      string[] ingredients = line.Trim('[', ']').Split(',');
       foreach (string ingredient in ingredients)
       {
-        System.Console.WriteLine("First ingredient: " + ingredient);
+        var enmumCov = new CreateObjectFromEnum();
+        bool whichIngredient = int.TryParse(ingredient, out result);
+        Ingredient newIng = enmumCov.GetIngredient((Ingredients)result);
+        System.Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
       }
+      System.Console.WriteLine();
     }
-    // var enmumCov = new CreateObjectFromEnum();
 
-    // Ingredient newIng = enmumCov.GetIngredient(Ingredients.WheatFlour);
-
-    // System.Console.WriteLine($"ID: {newIng.Id}");
-    // System.Console.WriteLine($"Name: {newIng.Name}");
-    // System.Console.WriteLine($"Prep instructions: {newIng.PreparationInstructions}");
   }
 }
 
