@@ -10,12 +10,18 @@ var newline = Environment.NewLine;
 Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
 Console.WriteLine(@$"1. Wheat flour{newline}2. Cocounut flour{newline}3. Butter{newline}4. Chocolate 
 5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
-if (File.Exists(''))
-  Recipe.Create();
+var enmumCov = new CreateObjectFromEnum();
+Ingredient newIng = enmumCov.GetIngredient(Ingredients.WheatFlour);
+System.Console.WriteLine($"ID: {newIng.Id}");
+System.Console.WriteLine($"Name: {newIng.Name}");
+System.Console.WriteLine($"Prep instructions: {newIng.PreparationInstructions}");
+
+//Recipe.Create();
 
 public static class Recipe
 {
   private const FileType fileType = FileType.json;
+
 
   public static void Create()
   {
@@ -29,6 +35,7 @@ public static class Recipe
     if (File.Exists(recipesFile))
     {
       FileManipulator.ReadFromFile(recipesFile);
+
     }
 
     do
@@ -42,12 +49,12 @@ public static class Recipe
         System.Console.WriteLine("Ingredient: " + ingredient);
         switch (ingredient)
         {
-          case Ingredients.Wheat_flour:
+          case Ingredients.WheatFlour:
             toBeAdded = new WheatFlour();
             ingredients.Add(new WheatFlour());
             break;
 
-          case Ingredients.Coconut_flour:
+          case Ingredients.CoconutFlour:
             toBeAdded = new CoconutFlour();
             ingredients.Add(new CoconutFlour());
             break;
@@ -77,7 +84,7 @@ public static class Recipe
             ingredients.Add(new Cinnamon());
             break;
 
-          case Ingredients.Cocoa_powder:
+          case Ingredients.CocoaPowder:
             toBeAdded = new CocoaPowder();
             ingredients.Add(new CocoaPowder());
             break;
@@ -93,6 +100,14 @@ public static class Recipe
     {
       FileManipulator.WriteToFile(ingredients, fileType);
     }
+  }
+}
+
+public class CreateObjectFromEnum
+{
+  public Ingredient GetIngredient(Ingredients ingredient)
+  {
+    return (Ingredient)Activator.CreateInstance(Type.GetType(ingredient.ToString()));
   }
 }
 
@@ -179,14 +194,14 @@ public class CocoaPowder : Ingredient
 
 public enum Ingredients
 {
-  Wheat_flour,
-  Coconut_flour,
+  WheatFlour,
+  CoconutFlour,
   Butter,
   Chocolate,
   Sugar,
   Cardamon,
   Cinnamon,
-  Cocoa_powder
+  CocoaPowder
 }
 
 public enum FileType
