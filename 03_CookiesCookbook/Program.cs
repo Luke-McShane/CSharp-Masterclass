@@ -10,13 +10,8 @@ var newline = Environment.NewLine;
 Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
 Console.WriteLine(@$"1. Wheat flour{newline}2. Cocounut flour{newline}3. Butter{newline}4. Chocolate 
 5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
-var enmumCov = new CreateObjectFromEnum();
-Ingredient newIng = enmumCov.GetIngredient(Ingredients.WheatFlour);
-System.Console.WriteLine($"ID: {newIng.Id}");
-System.Console.WriteLine($"Name: {newIng.Name}");
-System.Console.WriteLine($"Prep instructions: {newIng.PreparationInstructions}");
 
-//Recipe.Create();
+Recipe.Create();
 
 public static class Recipe
 {
@@ -27,7 +22,8 @@ public static class Recipe
   {
     bool addIngredients = true;
     string recipesFile = $"Recipes.{fileType}";
-
+    FileManipulator.ReadFromFile(recipesFile);
+    return;
     Ingredients ingredient;
     Ingredient toBeAdded;
     List<Ingredient> ingredients = new List<Ingredient>();
@@ -35,7 +31,6 @@ public static class Recipe
     if (File.Exists(recipesFile))
     {
       FileManipulator.ReadFromFile(recipesFile);
-
     }
 
     do
@@ -105,9 +100,9 @@ public static class Recipe
 
 public class CreateObjectFromEnum
 {
-  public Ingredient GetIngredient(Ingredients ingredient)
+  public Ingredient? GetIngredient(Ingredients ingredient)
   {
-    return (Ingredient)Activator.CreateInstance(Type.GetType(ingredient.ToString()));
+    return (Ingredient?)Activator.CreateInstance(Type.GetType(ingredient.ToString()));
   }
 }
 
@@ -130,7 +125,22 @@ public static class FileManipulator
 
   public static void ReadFromFile(string file)
   {
-    Console.WriteLine(File.ReadAllText(file));
+    string[] lines = File.ReadAllLines(file);
+    foreach (string line in lines)
+    {
+      string[] ingredients = line.Split(',');
+      foreach (string ingredient in ingredients)
+      {
+        System.Console.WriteLine("First ingredient: " + ingredient);
+      }
+    }
+    // var enmumCov = new CreateObjectFromEnum();
+
+    // Ingredient newIng = enmumCov.GetIngredient(Ingredients.WheatFlour);
+
+    // System.Console.WriteLine($"ID: {newIng.Id}");
+    // System.Console.WriteLine($"Name: {newIng.Name}");
+    // System.Console.WriteLine($"Prep instructions: {newIng.PreparationInstructions}");
   }
 }
 
