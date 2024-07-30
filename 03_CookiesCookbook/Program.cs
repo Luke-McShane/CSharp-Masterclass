@@ -102,8 +102,6 @@ public class CreateObjectFromEnum
 {
   public Ingredient? GetIngredient(Ingredients ingredient)
   {
-
-    System.Console.WriteLine("INGREDIENT: " + Type.GetType(ingredient.ToString()));
     return (Ingredient?)Activator.CreateInstance(Type.GetType(ingredient.ToString()));
   }
 }
