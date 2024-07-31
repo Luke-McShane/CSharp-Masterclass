@@ -1,3 +1,5 @@
+// Each ingredient has its own namespace nested within the general 'Ingredient' namespace, which contains the abstract Ingredient
+// class and also the Ingredients enum.
 using Ingredients;
 using Ingredients.Butter;
 using Ingredients.Cardamon;
@@ -9,6 +11,7 @@ using Ingredients.Sugar;
 using Ingredients.WheatFlour;
 using Utilities;
 
+//
 public static class Recipe
 {
   private const FileType fileType = FileType.json;
@@ -17,16 +20,11 @@ public static class Recipe
   public static void Create()
   {
     bool addIngredients = true;
-    string recipesFile = $"Recipes.{fileType}";
 
     Ingredients.Ingredients ingredient;
     List<Ingredient> ingredients = new List<Ingredient>();
 
-    if (File.Exists(recipesFile))
-    {
-      FileManipulator.ReadFromFile(recipesFile);
-      firstWrite = false;
-    }
+    FileManipulator.ReadFromFile();
 
     do
     {
@@ -44,7 +42,7 @@ public static class Recipe
 
     if (ingredients.Count >= 1)
     {
-      FileManipulator.WriteToFile(ingredients, fileType, firstWrite);
+      FileManipulator.WriteToFile(ingredients);
     }
   }
 

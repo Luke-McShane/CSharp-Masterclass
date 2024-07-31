@@ -4,7 +4,10 @@ using Ingredients;
 namespace Utilities;
 public static class FileManipulator
 {
-  public static void WriteToFile(List<Ingredient> ingredients, FileType fileType, bool firstWrite)
+  private const FileType fileType = FileType.json;
+  static string recipesFile = $"Recipes.{fileType}";
+  private static bool firstWrite = true;
+  public static void WriteToFile(List<Ingredient> ingredients)
   {
     int[] toWriteToFileArr = new int[ingredients.Count];
     System.Console.WriteLine(toWriteToFileArr.Length);
@@ -19,13 +22,17 @@ public static class FileManipulator
                         ? toWriteToFileString + JsonSerializer.Serialize(toWriteToFileArr)
                         : toWriteToFileString += string.Join(",", toWriteToFileArr);
 
-    System.Console.WriteLine("TEXT BEING WRITTEN: " + toWriteToFileString);
     if (firstWrite == false) toWriteToFileString = Environment.NewLine + toWriteToFileString;
     File.AppendAllText($"Recipes.{fileType}", toWriteToFileString);
   }
 
-  public static void ReadFromFile(string file)
+  public static void ReadFromFile()
   {
+    if (!File.Exists(recipesFile))
+    {
+      return;
+    }
+    firstWrite = false;
     int result;
     string[] lines = File.ReadAllLines(file);
     for (int i = 0; i < lines.Length; ++i)
