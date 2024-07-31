@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Ingredients;
 
+namespace Utilities;
 public static class FileManipulator
 {
   public static void WriteToFile(List<Ingredient> ingredients, FileType fileType, bool firstWrite)
@@ -36,10 +37,10 @@ public static class FileManipulator
       {
         var enmumCov = new CreateObjectFromEnum();
         bool whichIngredient = int.TryParse(ingredient, out result);
-        Ingredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
-        System.Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
+        Ingredient newIng = enmumCov.GetIngredient((Ingredients.Ingredients)result - 1);
+        Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
       }
-      System.Console.WriteLine();
+      Console.WriteLine();
     }
 
   }
