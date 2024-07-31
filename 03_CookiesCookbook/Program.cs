@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var newline = Environment.NewLine;
-
 Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
 Console.WriteLine(@$"1. Wheat flour{newline}2. Cocounut flour{newline}3. Butter{newline}4. Chocolate 
 5. Sugar{newline}6. Cardamon{newline}7. Cinnamon{newline}8. Cocoa powder");
@@ -16,8 +15,8 @@ Recipe.Create();
 
 public static class Recipe
 {
-  private const FileType fileType = FileType.txt;
-
+  private const FileType fileType = FileType.json;
+  private static bool firstWrite = true;
 
   public static void Create()
   {
@@ -31,6 +30,7 @@ public static class Recipe
     if (File.Exists(recipesFile))
     {
       FileManipulator.ReadFromFile(recipesFile);
+      firstWrite = false;
     }
 
     do
@@ -93,7 +93,7 @@ public static class Recipe
     } while (addIngredients);
     if (ingredients.Count >= 1)
     {
-      FileManipulator.WriteToFile(ingredients, fileType);
+      FileManipulator.WriteToFile(ingredients, fileType, firstWrite);
     }
   }
 }
@@ -108,7 +108,7 @@ public class CreateObjectFromEnum
 
 public static class FileManipulator
 {
-  public static void WriteToFile(List<Ingredient> ingredients, FileType fileType)
+  public static void WriteToFile(List<Ingredient> ingredients, FileType fileType, bool firstWrite)
   {
     int[] toWriteToFileArr = new int[ingredients.Count];
     System.Console.WriteLine(toWriteToFileArr.Length);
@@ -121,9 +121,11 @@ public static class FileManipulator
     }
     toWriteToFileString = fileType == FileType.json
                         ? toWriteToFileString + JsonSerializer.Serialize(toWriteToFileArr)
-                        : toWriteToFileString += toWriteToFileArr;
+                        : toWriteToFileString += string.Join(",", toWriteToFileArr);
 
-    File.AppendAllText($"Recipes.{fileType}", Environment.NewLine + toWriteToFileString);
+    System.Console.WriteLine("TEXT BEING WRITTEN: " + toWriteToFileString);
+    if (firstWrite == false) toWriteToFileString = Environment.NewLine + toWriteToFileString;
+    File.AppendAllText($"Recipes.{fileType}", toWriteToFileString);
   }
 
   public static void ReadFromFile(string file)
