@@ -1,3 +1,4 @@
+namespace Ingredients.Cardamon;
 
 public class Cardamon : Ingredient
 {

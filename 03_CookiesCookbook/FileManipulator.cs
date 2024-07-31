@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Ingredients;
 
 public static class FileManipulator
 {
@@ -42,4 +43,10 @@ public static class FileManipulator
     }
 
   }
+}
+
+public enum FileType
+{
+  txt,
+  json
 }

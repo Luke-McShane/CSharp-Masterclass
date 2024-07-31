@@ -1,3 +1,4 @@
+namespace Ingredients.Cinnamon;
 
 public class Cinnamon : Ingredient
 {

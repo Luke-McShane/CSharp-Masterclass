@@ -1,3 +1,4 @@
+namespace Ingredients.Chocolate;
 
 public class Chocolate : Ingredient
 {

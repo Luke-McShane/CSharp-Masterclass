@@ -1,3 +1,4 @@
+namespace Ingredients.CoconutFlour;
 
 public class CoconutFlour : Ingredient
 {

@@ -1,3 +1,4 @@
+namespace Ingredients.WheatFlour;
 
 public class WheatFlour : Ingredient
 {

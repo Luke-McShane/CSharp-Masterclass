@@ -1,3 +1,5 @@
+namespace Ingredients;
+
 public abstract class Ingredient
 {
   public abstract int Id { get; }

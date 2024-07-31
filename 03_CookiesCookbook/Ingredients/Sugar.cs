@@ -1,4 +1,4 @@
-
+namespace Ingredients.Sugar;
 public class Sugar : Ingredient
 {
   public override int Id { get => 5; }

@@ -1,3 +1,4 @@
+namespace Ingredients.Butter;
 
 public class Butter : Ingredient
 {

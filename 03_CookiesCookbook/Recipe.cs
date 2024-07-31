@@ -1,3 +1,14 @@
+using Ingredients;
+using Ingredients.Butter;
+using Ingredients.Cardamon;
+using Ingredients.Chocolate;
+using Ingredients.Cinnamon;
+using Ingredients.CocoaPowder;
+using Ingredients.CoconutFlour;
+using Ingredients.Sugar;
+using Ingredients.WheatFlour;
+
+
 public static class Recipe
 {
   private const FileType fileType = FileType.json;
@@ -8,8 +19,7 @@ public static class Recipe
     bool addIngredients = true;
     string recipesFile = $"Recipes.{fileType}";
 
-    Ingredients ingredient;
-    Ingredient toBeAdded;
+    Ingredients.Ingredients ingredient;
     List<Ingredient> ingredients = new List<Ingredient>();
 
     if (File.Exists(recipesFile))
@@ -25,7 +35,7 @@ public static class Recipe
       System.Console.WriteLine("Input: " + input);
       if (int.TryParse(input, out int result) && result <= 8 && result >= 1)
       {
-        ingredient = (Ingredients)result - 1;
+        ingredient = (Ingredients.Ingredients)result - 1;
         System.Console.WriteLine("Ingredient: " + ingredient);
         ingredients.Add(CreateIngredient(ingredient));
       }
@@ -38,32 +48,32 @@ public static class Recipe
     }
   }
 
-  private static Ingredient? CreateIngredient(Ingredients ingredient)
+  private static Ingredient? CreateIngredient(Ingredients.Ingredients ingredient)
   {
     switch (ingredient)
     {
-      case Ingredients.WheatFlour:
+      case Ingredients.Ingredients.WheatFlour:
         return new WheatFlour();
 
-      case Ingredients.CoconutFlour:
+      case Ingredients.Ingredients.CoconutFlour:
         return new CoconutFlour();
 
-      case Ingredients.Butter:
+      case Ingredients.Ingredients.Butter:
         return new Butter();
 
-      case Ingredients.Chocolate:
+      case Ingredients.Ingredients.Chocolate:
         return new Chocolate();
 
-      case Ingredients.Sugar:
+      case Ingredients.Ingredients.Sugar:
         return new Sugar();
 
-      case Ingredients.Cardamon:
+      case Ingredients.Ingredients.Cardamon:
         return new Cardamon();
 
-      case Ingredients.Cinnamon:
+      case Ingredients.Ingredients.Cinnamon:
         return new Cinnamon();
 
-      case Ingredients.CocoaPowder:
+      case Ingredients.Ingredients.CocoaPowder:
         return new CocoaPowder();
       default:
         return null;

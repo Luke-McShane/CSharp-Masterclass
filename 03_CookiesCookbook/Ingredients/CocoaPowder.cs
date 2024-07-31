@@ -1,3 +1,4 @@
+namespace Ingredients.CocoaPowder;
 
 public class CocoaPowder : Ingredient
 {
