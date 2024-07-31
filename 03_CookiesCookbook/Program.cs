@@ -16,7 +16,7 @@ Recipe.Create();
 
 public static class Recipe
 {
-  private const FileType fileType = FileType.json;
+  private const FileType fileType = FileType.txt;
 
 
   public static void Create()
