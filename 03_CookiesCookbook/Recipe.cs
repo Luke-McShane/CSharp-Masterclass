@@ -1,7 +1,6 @@
 // Each ingredient has its own namespace nested within the general 'Ingredient' namespace, which contains the abstract Ingredient
 // class and also the Ingredients enum.
 using Ingredients;
-using Ingredients.Butter;
 using Ingredients.Cardamon;
 using Ingredients.Chocolate;
 using Ingredients.Cinnamon;

@@ -34,7 +34,7 @@ public static class FileManipulator
     }
     firstWrite = false;
     int result;
-    string[] lines = File.ReadAllLines(file);
+    string[] lines = File.ReadAllLines(recipesFile);
     for (int i = 0; i < lines.Length; ++i)
     {
       System.Console.WriteLine($"*****{i + 1}*****");
@@ -43,9 +43,13 @@ public static class FileManipulator
       foreach (string ingredient in ingredients)
       {
         var enmumCov = new CreateObjectFromEnum();
-        bool whichIngredient = int.TryParse(ingredient, out result);
-        Ingredient newIng = enmumCov.GetIngredient((Ingredients.Ingredients)result - 1);
-        Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
+        bool flag = int.TryParse(ingredient, out result);
+        Ingredients.Ingredients whichIngredient = (Ingredients.Ingredients)(result - 1);
+        // Ingredient newIng = Activator.CreateInstance(Type.GetType);
+        // var newIng = (Ingredient?)Activator.CreateInstance(((Ingredients.Ingredients)result - 1).GetType());
+        // Ingredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
+        // Ingredient newIng = new (nameof())
+        // Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");
       }
       Console.WriteLine();
     }

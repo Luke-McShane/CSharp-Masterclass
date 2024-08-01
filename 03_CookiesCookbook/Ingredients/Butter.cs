@@ -1,4 +1,4 @@
-namespace Ingredients.Butter;
+namespace Ingredients;
 
 public class Butter : Ingredient
 {

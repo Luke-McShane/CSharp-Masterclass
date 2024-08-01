@@ -18,4 +18,3 @@ public enum Ingredients
   Cinnamon,
   CocoaPowder
 }
-
