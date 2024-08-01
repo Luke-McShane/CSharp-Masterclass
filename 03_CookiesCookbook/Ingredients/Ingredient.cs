@@ -1,10 +1,10 @@
 namespace Ingredients;
 
-public abstract class Ingredient
+public interface IIngredient
 {
-  public abstract int Id { get; }
-  public abstract string Name { get; }
-  public abstract string PreparationInstructions { get; }
+  public int Id { get; }
+  public string Name { get; }
+  public string PreparationInstructions { get; }
 }
 
 public enum Ingredients

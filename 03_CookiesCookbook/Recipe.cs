@@ -1,4 +1,4 @@
-// Each ingredient has its own namespace nested within the general 'Ingredient' namespace, which contains the abstract Ingredient
+// Each ingredient has its own namespace nested within the general 'IIngredient' namespace, which contains the abstract IIngredient
 // class and also the Ingredients enum.
 using Ingredients;
 using Ingredients.Cardamon;
@@ -21,7 +21,7 @@ public static class Recipe
     bool addIngredients = true;
 
     Ingredients.Ingredients ingredient;
-    List<Ingredient> ingredients = new List<Ingredient>();
+    List<IIngredient> ingredients = new List<IIngredient>();
 
     FileManipulator.ReadFromFile();
 
@@ -33,7 +33,7 @@ public static class Recipe
       if (int.TryParse(input, out int result) && result <= 8 && result >= 1)
       {
         ingredient = (Ingredients.Ingredients)result - 1;
-        System.Console.WriteLine("Ingredient: " + ingredient);
+        System.Console.WriteLine("IIngredient: " + ingredient);
         ingredients.Add(CreateIngredient(ingredient));
       }
       else { addIngredients = false; }
@@ -45,7 +45,7 @@ public static class Recipe
     }
   }
 
-  private static Ingredient? CreateIngredient(Ingredients.Ingredients ingredient)
+  private static IIngredient? CreateIngredient(Ingredients.Ingredients ingredient)
   {
     switch (ingredient)
     {

@@ -7,14 +7,14 @@ public static class FileManipulator
   private const FileType fileType = FileType.json;
   static string recipesFile = $@"C:\Users\admin\Projects\CSharpMasterclass\03_CookiesCookbook\Recipes.{fileType}";
   private static bool firstWrite = true;
-  public static void WriteToFile(List<Ingredient> ingredients)
+  public static void WriteToFile(List<IIngredient> ingredients)
   {
     int[] toWriteToFileArr = new int[ingredients.Count];
     System.Console.WriteLine(toWriteToFileArr.Length);
     string toWriteToFileString = "";
     for (int i = 0; i < ingredients.Count; ++i)
     {
-      Ingredient ingredient = ingredients[i];
+      IIngredient ingredient = ingredients[i];
 
       toWriteToFileArr[i] = ingredient.Id;
     }
@@ -33,7 +33,7 @@ public static class FileManipulator
       return;
     }
     firstWrite = false;
-    Ingredient? currentIngredient;
+    IIngredient? currentIngredient;
     var readIngredients = new ReadIngredients();
     string[] lines = File.ReadAllLines(recipesFile);
     for (int i = 0; i < lines.Length; ++i)
@@ -72,8 +72,8 @@ is an interesting idea to dynamically create objects based on referencing an enu
 // var enmumCov = new CreateObjectFromEnum();
 // bool flag = int.TryParse(ingredient, out result);
 // Ingredients.Ingredients whichIngredient = (Ingredients.Ingredients)(result - 1);
-// // Ingredient newIng = Activator.CreateInstance(Type.GetType);
-// // var newIng = (Ingredient?)Activator.CreateInstance(((Ingredients.Ingredients)result - 1).GetType());
-// // Ingredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
-// // Ingredient newIng = new (nameof())
+// // IIngredient newIng = Activator.CreateInstance(Type.GetType);
+// // var newIng = (IIngredient?)Activator.CreateInstance(((Ingredients.Ingredients)result - 1).GetType());
+// // IIngredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
+// // IIngredient newIng = new (nameof())
 // // Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");

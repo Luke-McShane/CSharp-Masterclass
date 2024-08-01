@@ -1,8 +1,8 @@
 namespace Ingredients.WheatFlour;
 
-public class WheatFlour : Ingredient
+public class WheatFlour : IIngredient
 {
-  public override int Id { get => 1; }
-  public override string Name { get => "Wheat flour"; }
-  public override string PreparationInstructions { get => "Sieve. Add to other ingredients."; }
+  public int Id { get => 1; }
+  public string Name { get => "Wheat flour"; }
+  public string PreparationInstructions { get => "Sieve. Add to other ingredients."; }
 }

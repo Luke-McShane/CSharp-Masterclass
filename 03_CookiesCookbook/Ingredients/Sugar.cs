@@ -1,7 +1,7 @@
 namespace Ingredients.Sugar;
-public class Sugar : Ingredient
+public class Sugar : IIngredient
 {
-  public override int Id { get => 5; }
-  public override string Name { get => "Sugar"; }
-  public override string PreparationInstructions { get => "Add to other ingredients."; }
+  public int Id { get => 5; }
+  public string Name { get => "Sugar"; }
+  public string PreparationInstructions { get => "Add to other ingredients."; }
 }

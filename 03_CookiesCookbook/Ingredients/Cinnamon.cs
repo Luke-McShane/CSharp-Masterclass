@@ -1,8 +1,8 @@
 namespace Ingredients.Cinnamon;
 
-public class Cinnamon : Ingredient
+public class Cinnamon : IIngredient
 {
-  public override int Id { get => 7; }
-  public override string Name { get => "Cinnamon"; }
-  public override string PreparationInstructions { get => "Take half a teaspoon. Add to other ingredients."; }
+  public int Id { get => 7; }
+  public string Name { get => "Cinnamon"; }
+  public string PreparationInstructions { get => "Take half a teaspoon. Add to other ingredients."; }
 }

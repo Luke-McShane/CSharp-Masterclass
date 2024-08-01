@@ -1,8 +1,8 @@
 namespace Ingredients.CoconutFlour;
 
-public class CoconutFlour : Ingredient
+public class CoconutFlour : IIngredient
 {
-  public override int Id { get => 2; }
-  public override string Name { get => "Coconut flour"; }
-  public override string PreparationInstructions { get => "Sieve. Add to other ingredients."; }
+  public int Id { get => 2; }
+  public string Name { get => "Coconut flour"; }
+  public string PreparationInstructions { get => "Sieve. Add to other ingredients."; }
 }

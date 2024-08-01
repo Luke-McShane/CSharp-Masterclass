@@ -12,11 +12,11 @@ namespace Utilities;
 public class ReadIngredients
 {
 
-  public Ingredient? GetAllIngredients(string strId)
+  public IIngredient? GetAllIngredients(string strId)
   {
     bool valid = int.TryParse(strId, out int id);
     if (!valid) return null;
-    List<Ingredient> allIngredients = new List<Ingredient>{
+    List<IIngredient> allIngredients = new List<IIngredient>{
           new Butter(),
           new Cardamon(),
           new Chocolate(),
@@ -30,7 +30,7 @@ public class ReadIngredients
 
   }
 
-  private Ingredient? FindIngredientById(List<Ingredient> ingredients, int id)
+  private IIngredient? FindIngredientById(List<IIngredient> ingredients, int id)
   {
     foreach (var ingredient in ingredients)
     {
