@@ -1,12 +1,5 @@
 using System.Text.Json;
 using Ingredients;
-using Ingredients.Cardamon;
-using Ingredients.Chocolate;
-using Ingredients.Cinnamon;
-using Ingredients.CocoaPowder;
-using Ingredients.CoconutFlour;
-using Ingredients.Sugar;
-using Ingredients.WheatFlour;
 
 namespace Utilities;
 public static class FileManipulator
@@ -52,7 +45,7 @@ public static class FileManipulator
       {
         currentIngredient = readIngredients.GetAllIngredients(ingredient);
         Console.WriteLine(currentIngredient.Name);
-        Console.WriteLine(currentIngredient.PreparationInstructions);
+        Console.WriteLine(currentIngredient.PreparationInstructions + Environment.NewLine);
       }
       Console.WriteLine();
     }
@@ -67,38 +60,15 @@ public enum FileType
 }
 
 
-public class ReadIngredients
-{
 
-  public Ingredient? GetAllIngredients(string strId)
-  {
-    bool valid = int.TryParse(strId, out int id);
-    if (!valid) return null;
-    List<Ingredient> allIngredients = new List<Ingredient>{
-          new Butter(),
-          new Cardamon(),
-          new Chocolate(),
-          new Cinnamon(),
-          new CocoaPowder(),
-          new CoconutFlour(),
-          new Sugar(),
-          new WheatFlour(),
-    };
-    return FindIngredientById(allIngredients, id);
 
-  }
-
-  private Ingredient? FindIngredientById(List<Ingredient> ingredients, int id)
-  {
-    foreach (var ingredient in ingredients)
-    {
-      if (ingredient.Id == id) { return ingredient; }
-    }
-    return null;
-  }
-
-}
-
+/*
+This code is my attempt to dynamically create instances of ingredients based on the value read from
+a text file. This worked when all the code was in a single file, but after organising my code this stopped working.
+I believe this is something to do with assemblies and dll files, and it felt too comprehensive and difficult
+a problem to persist with, so I created a new solution. This can be used for reference, however, as it
+is an interesting idea to dynamically create objects based on referencing an enum, I believe.
+*/
 // var enmumCov = new CreateObjectFromEnum();
 // bool flag = int.TryParse(ingredient, out result);
 // Ingredients.Ingredients whichIngredient = (Ingredients.Ingredients)(result - 1);
