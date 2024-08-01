@@ -11,7 +11,6 @@ namespace Utilities;
 
 public class ReadIngredients
 {
-
   public IIngredient? GetAllIngredients(string strId)
   {
     bool valid = int.TryParse(strId, out int id);
@@ -38,14 +37,4 @@ public class ReadIngredients
     }
     return null;
   }
-
 }
-
-// var enmumCov = new CreateObjectFromEnum();
-// bool flag = int.TryParse(ingredient, out result);
-// Ingredients.Ingredients whichIngredient = (Ingredients.Ingredients)(result - 1);
-// // Ingredient newIng = Activator.CreateInstance(Type.GetType);
-// // var newIng = (Ingredient?)Activator.CreateInstance(((Ingredients.Ingredients)result - 1).GetType());
-// // Ingredient newIng = enmumCov.GetIngredient((Ingredients)result - 1);
-// // Ingredient newIng = new (nameof())
-// // Console.WriteLine($"{newIng.Name}. {newIng.PreparationInstructions}");

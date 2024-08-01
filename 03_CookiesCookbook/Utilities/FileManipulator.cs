@@ -44,8 +44,11 @@ public static class FileManipulator
       foreach (string ingredient in ingredients)
       {
         currentIngredient = readIngredients.GetAllIngredients(ingredient);
-        Console.WriteLine(currentIngredient.Name);
-        Console.WriteLine(currentIngredient.PreparationInstructions + Environment.NewLine);
+        if (currentIngredient is not null)
+        {
+          Console.WriteLine(currentIngredient.Name);
+          Console.WriteLine(currentIngredient.PreparationInstructions + Environment.NewLine);
+        }
       }
       Console.WriteLine();
     }
