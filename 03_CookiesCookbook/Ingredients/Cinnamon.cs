@@ -1,8 +1,8 @@
 namespace Ingredients.Cinnamon;
 
-public class Cinnamon : IIngredient
+public class Cinnamon : CommonIngredient, IIngredient
 {
   public int Id { get => 7; }
   public string Name { get => "Cinnamon"; }
-  public string PreparationInstructions { get => "Take half a teaspoon. Add to other ingredients."; }
+  public override string PreparationInstructions => $"Take half a teaspoon. {base.PreparationInstructions}.";
 }

@@ -30,12 +30,15 @@ public static class Recipe
     // The use of the do-while loop ensures we can prompt the user at least once for an input.
     do
     {
+      // Prompt for an input and print to the console/
       Console.WriteLine("Add an ingredient by its ID or type anything else if finished.");
       string? input = Console.ReadLine();
-      System.Console.WriteLine("Input: " + input);
+      Console.WriteLine("Input: " + input);
       // Try and parse user input as an int and, if possible, store that in value in the newly created 'result' variable.
       if (int.TryParse(input, out int result))
       {
+        // If valid for our program, cast the input to the Ingredients enum, print the user's choice to the console,
+        // and add the choice to the list of IIngredients
         if (result <= 8 && result >= 1)
         {
           ingredient = (Ingredients.Ingredients)result - 1;
@@ -46,12 +49,14 @@ public static class Recipe
       else { addIngredients = false; }
     } while (addIngredients);
 
+    // After the user has created their recipe (which we check with the 'if' statement), write it to file.
     if (ingredients.Count >= 1)
     {
       FileManipulator.WriteToFile(ingredients);
     }
   }
 
+  // Return an IIngredient object from checking the desired ingredient from the user.
   private static IIngredient? CreateIngredient(Ingredients.Ingredients ingredient)
   {
     switch (ingredient)

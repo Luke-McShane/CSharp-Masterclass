@@ -1,8 +1,9 @@
 namespace Ingredients;
 
-public class Butter : IIngredient
+// Inherit from IIngredient interface and define all necessary properties.
+public class Butter : CommonIngredient, IIngredient
 {
   public int Id { get => 3; }
   public string Name { get => "Butter"; }
-  public string PreparationInstructions { get => "Melt on low heat. Add to other ingredients."; }
+  public override string PreparationInstructions => $"Melt on low heat. {base.PreparationInstructions}.";
 }
