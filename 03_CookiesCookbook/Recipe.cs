@@ -22,7 +22,7 @@ public static class Recipe
     // Value which will contain the enum value of the ingredient.
     Ingredients.Ingredients ingredient;
     // List to contain all ingredients the user would like in their recipe.
-    List<IIngredient> ingredients = new List<IIngredient>();
+    List<IIngredient> ingredients = new();
 
     // Present all extant files to the user before prompting them to create their own recipe.
     FileManipulator.ReadFromFile();
@@ -42,7 +42,7 @@ public static class Recipe
         if (result <= 8 && result >= 1)
         {
           ingredient = (Ingredients.Ingredients)result - 1;
-          System.Console.WriteLine("Ingredient: " + ingredient);
+          Console.WriteLine("Ingredient: " + ingredient);
           ingredients.Add(CreateIngredient(ingredient));
         }
       }

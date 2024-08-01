@@ -2,42 +2,56 @@ using System.Text.Json;
 using Ingredients;
 
 namespace Utilities;
+
+// A class used for reading to and writing from files.
 public static class FileManipulator
 {
+  // We can change this const at any point outside of compilation to change the target file.
   private const FileType fileType = FileType.json;
   static string recipesFile = $@"C:\Users\admin\Projects\CSharpMasterclass\03_CookiesCookbook\Recipes.{fileType}";
   private static bool firstWrite = true;
+
+  // Takes the list of ingredients to be written, iterates through them, and writes them to a file after creating a string containing them.
   public static void WriteToFile(List<IIngredient> ingredients)
   {
+    // Create an array to house all the ids of the ingredients.
     int[] toWriteToFileArr = new int[ingredients.Count];
-    System.Console.WriteLine(toWriteToFileArr.Length);
+    // Create a string that will house the final recipe to be written.
     string toWriteToFileString = "";
+    // Iterate through the ingredients and add the ids to the array.
     for (int i = 0; i < ingredients.Count; ++i)
     {
       IIngredient ingredient = ingredients[i];
 
       toWriteToFileArr[i] = ingredient.Id;
     }
+    // Check the file type and formate the string container appropriately.
     toWriteToFileString = fileType == FileType.json
                         ? toWriteToFileString + JsonSerializer.Serialize(toWriteToFileArr)
                         : toWriteToFileString += string.Join(",", toWriteToFileArr);
 
+    // If we have written to the file before, add a newline so our recipe sits beneath the previous one.
     if (firstWrite == false) toWriteToFileString = Environment.NewLine + toWriteToFileString;
     File.AppendAllText($"Recipes.{fileType}", toWriteToFileString);
   }
 
   public static void ReadFromFile()
   {
+    // If no file exists, return.
     if (!File.Exists(recipesFile))
     {
       return;
     }
+    // Create a series of variables, including a Read Ingredients object that we will use to determine which ingredients to print.
     firstWrite = false;
     IIngredient? currentIngredient;
-    var readIngredients = new ReadIngredients();
+    ReadIngredients readIngredients = new();
+    // Create a string array containing all lines read from the file.
     string[] lines = File.ReadAllLines(recipesFile);
     for (int i = 0; i < lines.Length; ++i)
     {
+      // Iterate through the current line, printing information of the relevant ingredient by creating an object of the appropriate type
+      // and printing its Name and PreparationInstructions to the console.
       System.Console.WriteLine($"*****{i + 1}*****");
       string line = lines[i];
       string[] ingredients = line.Trim('[', ']').Split(',');
