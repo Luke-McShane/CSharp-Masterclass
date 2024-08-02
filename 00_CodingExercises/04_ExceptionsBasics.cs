@@ -1,0 +1,1 @@
+// Exceptions are objects, and can therefore be containers for data. All exception objects derive from the System.Exception base class.
