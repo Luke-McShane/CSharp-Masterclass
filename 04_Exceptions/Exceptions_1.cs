@@ -133,6 +133,7 @@ public class Person
 
 /*
 EXCEPTIONS
+-  EXCEPTIONS SHOULD BE USED FOR EXCEPTIONAL SITUATIONS, NOT FOR CONTROLLING THE FLOW OF THE PROGRAM.
 - Remember that it is nearly always a bad idea to catch the Exception type, as we always want to be more specific than this. 
 - It can be okay to catch a base Exception object when we don't know specifically what exceptions we may be catching and when we want to log the
   exception and rethrow it.
@@ -143,4 +144,24 @@ EXCEPTIONS
   catch block itself, so you will need to catch it within that catch statement.
 - We should use the Least Surprise Principle, which states that we should build the program so that it operates in the least surprising way for
   the user as possible. For example, we should not create custom exceptions if there is a built-in exception type that handles the exception.
+- Ideally we avoid using exceptions unless necessary, because:
+    - Every time we throw an exception we add resource-pressure to the computer, and
+      reduce inefficiency. 
+    - Also, it complicates the code and makes it harder to read, because when we throw an exception we cannot always be so sure
+      as to where it will be caught. 
+    - Also, the exceptions are a hidden part of the method signature, which can make methods difficult to understand.
+*/
+
+/*
+WHeN TO USE THE CATCH BLOCK
+LOCALLY:
+- When we absolutely need to catch some very specific exceptions.
+- When we can meaningfully handle the exception, for example printing the message to the user, returning a default value, adding more information
+  by wrapping the exception in a more meaningful type, adding additional info to the message, or retrying to run the method.
+- We should not perform logging locally unless it is more specific than in the global catch.
+
+GLOBALLY:
+- Handle all exceptions not handled elsewhere, to save the program from crashing.
+- Present the message to the user in a meaningful way and apologise to the user.
+- Write to log with all essentual details.
 */
