@@ -2,7 +2,15 @@ public static class Exceptions_1
 {
   public static void Run()
   {
-    int firstNumber = GetFirstElement(new int[0]);
+    try
+    {
+      int firstNumber = GetFirstElement(new int[0]);
+    }
+    catch (NullReferenceException ex)
+    {
+      // Here we print the message of the orignal exception.
+      System.Console.WriteLine("Exception message: " + ex.InnerException.Message);
+    }
   }
 
   public static int GetFirstElement(IEnumerable<int> numbers)
@@ -22,13 +30,7 @@ public static class Exceptions_1
     throw new InvalidOperationException("Collection cannot be empty.");
   }
 
-  // If we want our code to compile, but haven't yet finished a method, we can throw the NotImplementedException.
-  bool CheckIfContains(int number, int[] numbers)
-  {
-    throw new NotImplementedException("Not yet implemented. Do not use.")
-  }
-
-  bool IsFirstElementPositive(IEnumerable<int> numbers)
+  static bool IsFirstElementPositive(IEnumerable<int> numbers)
   {
     try
     {
@@ -40,6 +42,7 @@ public static class Exceptions_1
     {
       System.Console.WriteLine("The collection is empty. " +
         "Exception mesage: " + ex);
+      return true;
     }
     // If the GetFirstElement throws a NullReferenceException, we can catch that and wrap the exception in our own
     // ArgumentNullException that we throw and wrap the original exception within by passing it as an argument.
@@ -47,8 +50,22 @@ public static class Exceptions_1
     // specifies that it is the argument that is null.
     catch (NullReferenceException ex)
     {
+      // Although we throw a new exception here, the stack trace is still maintained as we can drill into the 'Inner Exception' property
+      // to see where the exception was originally thrown from.
       throw new ArgumentNullException("The collection cannot be null. ", ex);
+
+      // We could just use 'throw' or 'throw ex' here. With 'throw' the stack trace is maintained, and when we drill into the exception we can see where the
+      // original exception was thrown.
+      // When using 'throw ex', we reset the stack trace and it will show that the exception was originally thrown here, which is untrue.
+      // throw;
+      // throw ex;
     }
+  }
+
+  // If we want our code to compile, but haven't yet finished a method, we can throw the NotImplementedException.
+  static bool CheckIfContains(int number, int[] numbers)
+  {
+    throw new NotImplementedException("Not yet implemented. Do not use.");
   }
 }
 
