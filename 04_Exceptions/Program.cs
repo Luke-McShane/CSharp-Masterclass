@@ -8,8 +8,8 @@ string input = Console.ReadLine();
 try
 {
   int userInt = ParseStringToInt(input);
-  int result = 10 / input;
-  System.Console.WriteLine($"10 / {input} = {result}.");
+  int result = 10 / userInt;
+  System.Console.WriteLine($"10 / {userInt} = {result}.");
 }
 // If any code throws an exception in the try block, the catch block will be executed.
 // We can pass the exception through as an argument by adding the 'Exception' type followed by the variable name in the parameter list.
