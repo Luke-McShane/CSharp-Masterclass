@@ -69,7 +69,7 @@ public static class Exceptions_1
   }
 
 
-  public void GetHttpRequest(string url)
+  static public void GetHttpRequest(string url)
   {
     // Exception Filters:
     // If, for example, we get an error when trying to make a HTTP request, the error type may simply be of 'HttpRequestException', so we can
@@ -102,7 +102,7 @@ public static class Exceptions_1
     }
   }
 
-  private string SendHttpRequest(string url)
+  static private string SendHttpRequest(string url)
   {
     throw new NotImplementedException("Not yet implemented");
   }
@@ -140,5 +140,7 @@ EXCEPTIONS
   least be caught by the global try-catch block, and we can print this exception to the user and gracefully end the program.
 - The code within the catch block should be as simple as possible, and it should be very unlikely to throw an exception.
 - If an exception is thrown within a catch block, it will not go to the remaining catch blocks, it will instead throw an exception within that
-  catch block itself, so you will need to catch it within that catch statement. 
+  catch block itself, so you will need to catch it within that catch statement.
+- We should use the Least Surprise Principle, which states that we should build the program so that it operates in the least surprising way for
+  the user as possible. For example, we should not create custom exceptions if there is a built-in exception type that handles the exception.
 */
