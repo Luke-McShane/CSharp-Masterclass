@@ -71,6 +71,7 @@ public static class Exceptions_1
 
   public void GetHttpRequest(string url)
   {
+    // Exception Filters:
     // If, for example, we get an error when trying to make a HTTP request, the error type may simply be of 'HttpRequestException', so we can
     // differentiate between the different errors using the 'when' keyword and specifying some criteria to help us specify the error.
     try
