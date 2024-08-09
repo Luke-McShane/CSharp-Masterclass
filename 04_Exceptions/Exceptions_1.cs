@@ -67,6 +67,44 @@ public static class Exceptions_1
   {
     throw new NotImplementedException("Not yet implemented. Do not use.");
   }
+
+
+  public void GetHttpRequest(string url)
+  {
+    // If, for example, we get an error when trying to make a HTTP request, the error type may simply be of 'HttpRequestException', so we can
+    // differentiate between the different errors using the 'when' keyword and specifying some criteria to help us specify the error.
+    try
+    {
+      var request = SendHttpRequest(url);
+    }
+    catch (HttpRequestException ex) when (ex.Message == "403")
+    {
+      System.Console.WriteLine("It was forbidden to access the resource.");
+      throw;
+    }
+    catch (HttpRequestException ex) when (ex.Message == "404")
+    {
+      System.Console.WriteLine("The resource could not be found.");
+      throw;
+    }
+    catch (HttpRequestException ex) when (ex.Message == "500")
+    {
+      System.Console.WriteLine("The server has experienced an internal error.");
+      throw;
+    }
+    // We can use the StartsWith method to catch the remaining errors that begin with '4', and we place this after the other '403' and '404' catch
+    // statements as we want to catch the most specific errors first.
+    catch (HttpRequestException ex) when (ex.Message.StartsWith("4"))
+    {
+      System.Console.WriteLine("Some kind of client error was experienced.");
+      throw;
+    }
+  }
+
+  private string SendHttpRequest(string url)
+  {
+    throw new NotImplementedException("Not yet implemented");
+  }
 }
 
 public class Person
@@ -94,5 +132,12 @@ public class Person
 
 /*
 EXCEPTIONS
-Remember that it is nearly always a bad idea to catch the Exception type, as we always want to be more specific than this. 
+- Remember that it is nearly always a bad idea to catch the Exception type, as we always want to be more specific than this. 
+- It can be okay to catch a base Exception object when we don't know specifically what exceptions we may be catching and when we want to log the
+  exception and rethrow it.
+- We can also wrap the entire program in a try-catch block, so that if any sort of exception is thrown that we are unable to catch, it will at
+  least be caught by the global try-catch block, and we can print this exception to the user and gracefully end the program.
+- The code within the catch block should be as simple as possible, and it should be very unlikely to throw an exception.
+- If an exception is thrown within a catch block, it will not go to the remaining catch blocks, it will instead throw an exception within that
+  catch block itself, so you will need to catch it within that catch statement. 
 */
