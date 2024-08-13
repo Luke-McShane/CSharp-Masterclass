@@ -10,6 +10,15 @@
 // Removing an item from a list can also be performance heavy because all elements to the right must be moved left so that there are
 // no spaces between elements. This can be very performance heavy if the list is very large.
 
+var myList = new ListOfItems();
+myList.Add(10);
+myList.Add(20);
+myList.Add(30);
+myList.Add(40);
+myList.Add(50);
+myList.Add(60);
+
+Console.Read();
 class ListOfItems
 {
   private int[] _items = new int[4];
@@ -19,15 +28,16 @@ class ListOfItems
   {
     if (_items.Length == _size)
     {
+      int[] newArray = new int[_items.Length * 2];
       for (int i = 0; i < _items.Length; ++i)
       {
-        int[] newArray = new int[_items.Length * 2];
         newArray[i] = _items[i];
-        _items = newArray;
       }
+      _items = newArray;
     }
 
     _items[_size] = item;
+    ++_size;
 
 
   }
