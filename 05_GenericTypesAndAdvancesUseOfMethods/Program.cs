@@ -17,6 +17,10 @@ myList.Add(30);
 myList.Add(40);
 myList.Add(50);
 myList.Add(60);
+myList.Add(70);
+myList.Add(80);
+
+myList.RemoveAt(4);
 
 Console.Read();
 class ListOfItems
@@ -38,7 +42,19 @@ class ListOfItems
 
     _items[_size] = item;
     ++_size;
+  }
 
+  public void RemoveAt(int index)
+  {
+    if (index < 0 || index >= _size)
+    {
+      throw new IndexOutOfRangeException($"Index {index} is out of the range of the list.");
+    }
 
+    for (int i = index; i < _size; ++i)
+    {
+      System.Console.WriteLine(i);
+      _items[i - 1] = _items[i];
+    }
   }
 }
