@@ -126,3 +126,19 @@ public class Pair<T>
     Second = default;
   }
 }
+
+///
+
+public class PairOfInts
+{
+  public int First { get; }
+  public int Second { get; }
+
+  public PairOfInts(int first, int second)
+  {
+    First = first;
+    Second = second;
+  }
+}
+
+public class 
