@@ -12,21 +12,36 @@
 
 using System.Runtime.CompilerServices;
 
-var myList = new ListOfItems();
-myList.Add(10);
-myList.Add(20);
-myList.Add(30);
-myList.Add(40);
-myList.Add(50);
-myList.Add(60);
-myList.Add(70);
-myList.Add(80);
+var myIntList = new ListOfItems<int>();
+myIntList.Add(10);
+myIntList.Add(20);
+myIntList.Add(30);
+myIntList.Add(40);
+myIntList.Add(50);
+myIntList.Add(60);
+myIntList.Add(70);
+myIntList.Add(80);
 
-myList.RemoveAt(4);
+myIntList.RemoveAt(4);
+
+var myStringList = new ListOfItems<string>();
+myStringList.Add("aaa");
+myStringList.Add("bbb");
+myStringList.Add("ccc");
+
+var myDateList = new ListOfItems<DateTime>();
+myDateList.Add(new DateTime(2024, 08, 14));
+myDateList.Add(new DateTime(2023, 09, 13));
+myDateList.Add(new DateTime(2022, 10, 12));
 
 Console.Read();
+
+// Here we declare we are creating a generic class due to the angled brackets. Using 'T' is by convention, and stands for 'Type', but
+// we can have any placeholding name here. We can also have multiple parameters (ListOfItems<T1, T2, T3>) for example, which will act
+// as placeholders for different types passed in the parameter list when instantiating an object.
 class ListOfItems<T>
 {
+  // This is how we can use the generic throughout the class.
   private T[] _items = new T[4];
   private int _size = 0;
 
@@ -61,7 +76,10 @@ class ListOfItems<T>
       _items[i] = _items[i + 1];
     }
 
-    // _items[_size] = ;
+    // The 'default' keyword gives the default type dependent on the context. So, here, whatever the default value for
+    // _items is in this context will be returned and set at _size index.
+    // For example, 'int defaultInt = default' will be equal to 0, given the declared type is int.
+    _items[_size] = default;
 
     foreach (var item in _items)
     {
