@@ -34,6 +34,12 @@ myDateList.Add(new DateTime(2024, 08, 14));
 myDateList.Add(new DateTime(2023, 09, 13));
 myDateList.Add(new DateTime(2022, 10, 12));
 
+///
+
+var pairOfInts = new Pair<int>(12, 15);
+var pairOfStrings = new Pair<string>("first string", "second string");
+var pairOfDates = new Pair<DateTime>(new DateTime(2023, 12, 9), new DateTime(2024, 07, 23));
+
 Console.Read();
 
 // Here we declare we are creating a generic class due to the angled brackets. Using 'T' is by convention, and stands for 'Type', but
@@ -95,5 +101,28 @@ class ListOfItems<T>
     }
 
     return _items[index];
+  }
+}
+
+// Here we create another generic type and show how we can add a constructor to set default values.
+public class Pair<T>
+{
+  public T First { get; private set; }
+  public T Second { get; private set; }
+
+  public Pair(T first, T second)
+  {
+    First = first;
+    Second = second;
+  }
+
+  public void ResetFirst()
+  {
+    First = default;
+  }
+
+  public void ResetSecond()
+  {
+    Second = default;
   }
 }
