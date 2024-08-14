@@ -25,16 +25,16 @@ myList.Add(80);
 myList.RemoveAt(4);
 
 Console.Read();
-class ListOfItems
+class ListOfItems<T>
 {
-  private int[] _items = new int[4];
+  private T[] _items = new T[4];
   private int _size = 0;
 
-  public void Add(int item)
+  public void Add(T item)
   {
     if (_items.Length == _size)
     {
-      int[] newArray = new int[_items.Length * 2];
+      T[] newArray = new T[_items.Length * 2];
       for (int i = 0; i < _items.Length; ++i)
       {
         newArray[i] = _items[i];
@@ -61,7 +61,7 @@ class ListOfItems
       _items[i] = _items[i + 1];
     }
 
-    _items[_size] = 0;
+    // _items[_size] = ;
 
     foreach (var item in _items)
     {
@@ -69,7 +69,7 @@ class ListOfItems
     }
   }
 
-  public int GetAtIndex(int index)
+  public T GetAtIndex(int index)
   {
     if (index < 0 || index >= _size)
     {
