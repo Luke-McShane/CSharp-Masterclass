@@ -10,6 +10,8 @@
 // Removing an item from a list can also be performance heavy because all elements to the right must be moved left so that there are
 // no spaces between elements. This can be very performance heavy if the list is very large.
 
+using System.Runtime.CompilerServices;
+
 var myList = new ListOfItems();
 myList.Add(10);
 myList.Add(20);
@@ -51,10 +53,19 @@ class ListOfItems
       throw new IndexOutOfRangeException($"Index {index} is out of the range of the list.");
     }
 
+    --_size;
+
     for (int i = index; i < _size; ++i)
     {
       System.Console.WriteLine(i);
-      _items[i - 1] = _items[i];
+      _items[i] = _items[i + 1];
+    }
+
+    _items[_size] = 0;
+
+    foreach (var item in _items)
+    {
+      System.Console.WriteLine(item);
     }
   }
 }
