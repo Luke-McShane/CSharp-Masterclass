@@ -68,4 +68,14 @@ class ListOfItems
       System.Console.WriteLine(item);
     }
   }
+
+  public int GetAtIndex(int index)
+  {
+    if (index < 0 || index >= _size)
+    {
+      throw new IndexOutOfRangeException($"Index {index} is out of the range of the list.");
+    }
+
+    return _items[index];
+  }
 }
