@@ -40,6 +40,35 @@ var pairOfInts = new Pair<int>(12, 15);
 var pairOfStrings = new Pair<string>("first string", "second string");
 var pairOfDates = new Pair<DateTime>(new DateTime(2023, 12, 9), new DateTime(2024, 07, 23));
 
+///
+
+
+PairOfInts minAndMax = GetMinAndMax(new List<int> { 4, 63, 54, 8, 17, 34, 27 });
+
+Console.WriteLine($"Smallest number: {minAndMax.First}, Largest number: {minAndMax.Second}");
+PairOfInts GetMinAndMax(IEnumerable<int> input)
+{
+  if (!input.Any())
+  {
+    throw new InvalidOperationException("The collection cannot be empty.");
+  }
+
+  int min = input.First();
+  int max = input.First();
+  foreach (int num in input)
+  {
+    if (num > max)
+    {
+      max = num;
+    }
+    if (num < min)
+    {
+      min = num;
+    }
+  }
+  return new PairOfInts(min, max);
+}
+
 Console.Read();
 
 // Here we declare we are creating a generic class due to the angled brackets. Using 'T' is by convention, and stands for 'Type', but
@@ -129,6 +158,8 @@ public class Pair<T>
 
 ///
 
+// This class is used as a type that we can use to create objects to, for example, store the min and max from a list of ints, as shown above.
+// This is showing how we may return two values from a method without using a tuple.
 public class PairOfInts
 {
   public int First { get; }
@@ -140,5 +171,3 @@ public class PairOfInts
     Second = second;
   }
 }
-
-public class 
