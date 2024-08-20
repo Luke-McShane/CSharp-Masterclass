@@ -223,3 +223,13 @@ public class TupleExample<T1, T2>
     Second = second;
   }
 }
+
+// Here we create a class (must be static) that will house a method to extend the list class.
+public static class ListExtension
+{
+  // Here is our first example of a generic method. We show that it's generic by adding the <T> after the method name.
+  public static void AddToFront<T>(List<T> list, T item)
+  {
+
+  }
+}
