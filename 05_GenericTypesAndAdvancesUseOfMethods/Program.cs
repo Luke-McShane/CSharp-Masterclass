@@ -110,6 +110,15 @@ static Tuple<T2, T1> SwapTupleItems<T1, T2>(Tuple<T1, T2> tupleSource)
               => new Tuple<T2, T1>(tupleSource.Item2, tupleSource.Item1);
 
 
+///
+
+// Here we make use of the list conversion method we created below which extends the list clas.
+var decimalList = new List<decimal> { 1.3m, 2.4m, 34.5m };
+List<int> intList = decimalList.ConvertTo<decimal, int>();
+foreach (var item in intList)
+{
+  System.Console.WriteLine(item);
+}
 
 
 Console.Read();
@@ -228,6 +237,8 @@ public class TupleExample<T1, T2>
   }
 }
 
+
+
 // Here we create a class (must be static) that will house a method to extend the list class.
 public static class ListExtension
 {
@@ -239,14 +250,28 @@ public static class ListExtension
 
   // Here we show how we can convert a list of one type to a list of another type. We have two generic types passed in the parameter
   // list to store what the source list type is and then what the target list type is.
+  // public static List<TTarget> ConvertTo<TSource, TTarget>(this List<TSource> list)
+  // {
+  //   var result = new List<TTarget>();
+
+  //   foreach (var item in list)
+  //   {
+  //     result.Add((TTarget)item);
+  //   }
+  //   return result;
+  // }
+
   public static List<TTarget> ConvertTo<TSource, TTarget>(this List<TSource> list)
   {
     var result = new List<TTarget>();
 
     foreach (var item in list)
     {
-      result.Add((TTarget)item);
+      TTarget itemAfterCasting = (TTarget)Convert.ChangeType(item, typeof(TTarget));
+      result.Add(itemAfterCasting);
     }
+
     return result;
+
   }
 }
