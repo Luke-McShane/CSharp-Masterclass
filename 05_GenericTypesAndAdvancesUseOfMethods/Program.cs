@@ -120,6 +120,23 @@ foreach (var item in intList)
   System.Console.WriteLine(item);
 }
 
+///
+
+// Here we make use of a type constraint, ensuring that the type we are passing has a parameterless constructor.
+// If we didn't have this constraint we wouldn't be able to 'Add(new T())' because we couldn't be certain that the
+// type being passed has a parameterless constructor.
+IEnumerable<T> CreateCollectionOfRandomLength<T>(int maxLength) where T : new()
+{
+  var length = new Random().Next(0, maxLength + 1);
+  var result = new List<T>();
+
+  for (int i = 0; i < maxLength; ++i)
+  {
+    result.Add(new T());
+  }
+  return result;
+}
+
 
 Console.Read();
 
