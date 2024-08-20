@@ -228,8 +228,21 @@ public class TupleExample<T1, T2>
 public static class ListExtension
 {
   // Here is our first example of a generic method. We show that it's generic by adding the <T> after the method name.
-  public static void AddToFront<T>(List<T> list, T item)
+  public static void AddToFront<T>(this List<T> list, T item)
   {
+    list.Insert(0, item);
+  }
 
+  // Here we show how we can convert a list of one type to a list of another type. We have two generic types passed in the parameter
+  // list to store what the source list type is and then what the target list type is.
+  public static List<TTarget> ConvertTo<TSource, TTarget>(this List<TSource> list)
+  {
+    var result = new List<TTarget>();
+
+    foreach (var item in list)
+    {
+      result.Add((TTarget)item);
+    }
+    return result;
   }
 }
