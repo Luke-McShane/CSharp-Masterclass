@@ -105,6 +105,10 @@ TupleExample<int, int> GetMinAndMaxTuple(IEnumerable<int> input)
   return new TupleExample<int, int>(min, max);
 }
 
+// Here is a method that swaps the types of a tuple around and returns this new tuple.
+static Tuple<T2, T1> SwapTupleItems<T1, T2>(Tuple<T1, T2> tupleSource)
+              => new Tuple<T2, T1>(tupleSource.Item2, tupleSource.Item1);
+
 
 
 
