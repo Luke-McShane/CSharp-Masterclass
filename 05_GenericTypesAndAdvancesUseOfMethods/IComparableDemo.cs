@@ -16,6 +16,15 @@ public class IComparableDemo
 
     people.Sort();
 
+    var anna = new Person { Name = "Anna", YearOfBirth = 2002 };
+    var steven = new Person { Name = "Steven", YearOfBirth = 1983 };
+
+    // We can print these in order because we have created a generic PrintInOrder method that is constrained by
+    // type T that must derive from IComparable, meaning it must have access to the CompareTo function.
+    PrintInOrder(4, 2);
+    PrintInOrder("ccc", "bbb");
+    PrintInOrder(steven, anna);
+
   }
 
   // We extend from the IComparable interface and define the CompareTo method it outlines, which enables us to use the
@@ -23,8 +32,8 @@ public class IComparableDemo
   // and our definition of CompareTo supplies the rules for sorting.
   public class Person : IComparable<Person>
   {
-    public string Name { get; set; } = name;
-    public int YearOfBirth { get; set; } = year;
+    public string Name { get; set; }
+    public int YearOfBirth { get; set; }
 
     public int CompareTo(Person other)
     {
@@ -34,3 +43,17 @@ public class IComparableDemo
 
     }
   }
+
+  // Setting a constraint so that the type passed must derive from the IComparable class, and therefore be sortable.
+  public void PrintInOrder<T>(T first, T second) where T : IComparable<T>
+  {
+    if (first.CompareTo(second) > 0)
+    {
+      System.Console.WriteLine($"{second} {first}");
+    }
+    else
+    {
+      System.Console.WriteLine($"{first} {second}");
+    }
+  }
+}
