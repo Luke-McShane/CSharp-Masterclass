@@ -35,15 +35,25 @@ myDateList.Add(new DateTime(2023, 09, 13));
 myDateList.Add(new DateTime(2022, 10, 12));
 
 ///
+///
+///
 
+// This class can take two parameters of the same type, specific within angled brackets.
 var pairOfInts = new Pair<int>(12, 15);
 var pairOfStrings = new Pair<string>("first string", "second string");
 var pairOfDates = new Pair<DateTime>(new DateTime(2023, 12, 9), new DateTime(2024, 07, 23));
 
 ///
+///
+///
 
-
+// Here we create a PairOfInts object using the GetMindAndMax method, because this returns the PairOfInts type
 PairOfInts minAndMax = GetMinAndMax(new List<int> { 4, 63, 54, 8, 17, 34, 27 });
+Console.WriteLine($"Smallest number: {minAndMax.First}, Largest number: {minAndMax.Second}");
+
+///
+///
+///
 
 // Here is an example of making the most of the generic class we created to create objects with different data types in them.
 // But what if we want a tuple with more than two parameters?
@@ -54,7 +64,21 @@ var tuple3 = new TupleExample<decimal, int>(23.42m, 245);
 // We can use C#'s built in type, Tuple, to have as many parameters as we'd like.
 var builtInTuple1 = new Tuple<int, bool, string>(124, true, "example");
 
-Console.WriteLine($"Smallest number: {minAndMax.First}, Largest number: {minAndMax.Second}");
+///
+///
+///
+
+// Here we make use of the list conversion method we created in the ListExtension class which extends the list class.
+var decimalList = new List<decimal> { 1.3m, 2.4m, 34.5m };
+List<int> intList = decimalList.ConvertTo<decimal, int>();
+foreach (var item in intList)
+{
+  System.Console.WriteLine(item);
+}
+
+///
+///
+///
 
 // This method takes a collection of ints and rtturns the smallest and largest from the list as a PairOfInts object.
 // As you can see, this is restrictive because it can only take a collection of ints and can only return a 'PairOfInts' object,
@@ -109,17 +133,6 @@ TupleExample<int, int> GetMinAndMaxTuple(IEnumerable<int> input)
 static Tuple<T2, T1> SwapTupleItems<T1, T2>(Tuple<T1, T2> tupleSource)
               => new Tuple<T2, T1>(tupleSource.Item2, tupleSource.Item1);
 
-
-///
-
-// Here we make use of the list conversion method we created below which extends the list clas.
-var decimalList = new List<decimal> { 1.3m, 2.4m, 34.5m };
-List<int> intList = decimalList.ConvertTo<decimal, int>();
-foreach (var item in intList)
-{
-  System.Console.WriteLine(item);
-}
-
 ///
 
 // Here we make use of a type constraint, ensuring that the type we are passing has a parameterless constructor.
@@ -137,158 +150,4 @@ IEnumerable<T> CreateCollectionOfRandomLength<T>(int maxLength) where T : new()
   return result;
 }
 
-
 Console.Read();
-
-// Here we declare we are creating a generic class due to the angled brackets. Using 'T' is by convention, and stands for 'Type', but
-// we can have any placeholding name here. We can also have multiple parameters (ListOfItems<T1, T2, T3>) for example, which will act
-// as placeholders for different types passed in the parameter list when instantiating an object.
-class ListOfItems<T>
-{
-  // This is how we can use the generic throughout the class.
-  private T[] _items = new T[4];
-  private int _size = 0;
-
-  public void Add(T item)
-  {
-    if (_items.Length == _size)
-    {
-      T[] newArray = new T[_items.Length * 2];
-      for (int i = 0; i < _items.Length; ++i)
-      {
-        newArray[i] = _items[i];
-      }
-      _items = newArray;
-    }
-
-    _items[_size] = item;
-    ++_size;
-  }
-
-  public void RemoveAt(int index)
-  {
-    if (index < 0 || index >= _size)
-    {
-      throw new IndexOutOfRangeException($"Index {index} is out of the range of the list.");
-    }
-
-    --_size;
-
-    for (int i = index; i < _size; ++i)
-    {
-      System.Console.WriteLine(i);
-      _items[i] = _items[i + 1];
-    }
-
-    // The 'default' keyword gives the default type dependent on the context. So, here, whatever the default value for
-    // _items is in this context will be returned and set at _size index.
-    // For example, 'int defaultInt = default' will be equal to 0, given the declared type is int.
-    _items[_size] = default;
-
-    foreach (var item in _items)
-    {
-      System.Console.WriteLine(item);
-    }
-  }
-
-  public T GetAtIndex(int index)
-  {
-    if (index < 0 || index >= _size)
-    {
-      throw new IndexOutOfRangeException($"Index {index} is out of the range of the list.");
-    }
-
-    return _items[index];
-  }
-}
-
-// Here we create another generic type and show how we can add a constructor to set default values.
-public class Pair<T>
-{
-  public T First { get; private set; }
-  public T Second { get; private set; }
-
-  public Pair(T first, T second)
-  {
-    First = first;
-    Second = second;
-  }
-
-  public void ResetFirst()
-  {
-    First = default;
-  }
-
-  public void ResetSecond()
-  {
-    Second = default;
-  }
-}
-
-///
-
-// This class is used as a type that we can use to create objects to, for example, store the min and max from a list of ints, as shown above.
-// This is showing how we may return two values from a method without using a tuple.
-public class PairOfInts
-{
-  public int First { get; }
-  public int Second { get; }
-
-  public PairOfInts(int first, int second)
-  {
-    First = first;
-    Second = second;
-  }
-}
-
-// Here is an example of a tuple we make, which takes two types as its parameters.
-public class TupleExample<T1, T2>
-{
-  public T1 First { get; }
-  public T2 Second { get; }
-
-  public TupleExample(T1 first, T2 second)
-  {
-    First = first;
-    Second = second;
-  }
-}
-
-
-
-// Here we create a class (must be static) that will house a method to extend the list class.
-public static class ListExtension
-{
-  // Here is our first example of a generic method. We show that it's generic by adding the <T> after the method name.
-  public static void AddToFront<T>(this List<T> list, T item)
-  {
-    list.Insert(0, item);
-  }
-
-  // Here we show how we can convert a list of one type to a list of another type. We have two generic types passed in the parameter
-  // list to store what the source list type is and then what the target list type is.
-  // public static List<TTarget> ConvertTo<TSource, TTarget>(this List<TSource> list)
-  // {
-  //   var result = new List<TTarget>();
-
-  //   foreach (var item in list)
-  //   {
-  //     result.Add((TTarget)item);
-  //   }
-  //   return result;
-  // }
-
-  public static List<TTarget> ConvertTo<TSource, TTarget>(this List<TSource> list)
-  {
-    var result = new List<TTarget>();
-
-    foreach (var item in list)
-    {
-      TTarget itemAfterCasting = (TTarget)Convert.ChangeType(item, typeof(TTarget));
-      result.Add(itemAfterCasting);
-    }
-
-    return result;
-
-  }
-}
