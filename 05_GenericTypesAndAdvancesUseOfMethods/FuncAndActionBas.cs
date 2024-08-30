@@ -20,11 +20,22 @@ public class FuncAndActionBas
   public void Main()
   {
     var numbers = new List<int> { 1, 4, 6, 2, 11, 9 };
+    // Here we define two funcs, setting the value of the variable to a method that corresponds with its signature.
     Func<int, bool> predicate1 = IsEven;
     Func<int, bool> predicate2 = IsGreaterThan10;
 
     var anyEvenNumbers = IsAny(numbers, predicate1);
     var anyNumberGreaterThan10 = IsAny(numbers, predicate2);
+
+    /* 
+      We can also use lambda expressions to reduce the amount of code needed. Lambda expressions are anonymous 
+      functions that reduce the amount of code we need.
+      Notice below how little code we need to do the same thing as when we separately defined the anyEvenNumbers
+      and anyNumberGreaterThan10 methods. We can simply do these *inline* using lambda expressions.
+     */
+
+    var anyEvenNumbersLambda = IsAny(numbers, n => n % 2 == 0);
+    var anyNumberGreaterThan10Lambda = IsAny(numbers, n => n > 2);
 
     Console.WriteLine("There is at least one even number in the 'numbers' array: " + anyEvenNumbers);
     Console.WriteLine("There is at least one number greater than 10 in the 'numbers' array: " + anyNumberGreaterThan10);
