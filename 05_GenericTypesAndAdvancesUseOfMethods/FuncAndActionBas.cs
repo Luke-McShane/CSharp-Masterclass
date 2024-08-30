@@ -32,6 +32,12 @@ public class FuncAndActionBas
       functions that reduce the amount of code we need.
       Notice below how little code we need to do the same thing as when we separately defined the anyEvenNumbers
       and anyNumberGreaterThan10 methods. We can simply do these *inline* using lambda expressions.
+
+      A lambda expression is define by: parameters => expression/statement. Remember that the difference between an expression and
+      a statement is that an expression evaluates to a value whereas a statement doesn't.
+
+      If we wanted a parameterless lambda statement we could do so through: () => DoSomethingWithoutArgs;
+      If we wanted multiple parameters we would use parenthesis: (x, y) => x + y;
      */
 
     var anyEvenNumbersLambda = IsAny(numbers, n => n % 2 == 0);
