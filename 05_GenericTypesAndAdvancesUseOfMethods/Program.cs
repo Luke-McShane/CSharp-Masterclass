@@ -11,6 +11,9 @@
 // no spaces between elements. This can be very performance heavy if the list is very large.
 
 using System.Runtime.CompilerServices;
+using _05_GenericTypesAndAdvancesUseOfMethods;
+
+DictionaryExample.Main();
 
 var myIntList = new ListOfItems<int>();
 myIntList.Add(10);
