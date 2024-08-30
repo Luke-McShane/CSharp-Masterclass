@@ -13,7 +13,7 @@
 using System.Runtime.CompilerServices;
 using _05_GenericTypesAndAdvancesUseOfMethods;
 
-DictionaryExample.Main();
+DictionaryExample2.Main();
 
 var myIntList = new ListOfItems<int>();
 myIntList.Add(10);

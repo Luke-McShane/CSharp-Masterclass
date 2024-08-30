@@ -12,12 +12,12 @@ public class MultipleConstraints
   type must have a parameterless constructor defined.
   */
   public void SomeMethod<TPet, TOwner>(TPet pet, TOwner owner)
-    where TPet : Pet, IComparable<TPet>
+    where TPet : Pets, IComparable<TPet>
     where TOwner : new()
   {
 
   }
 }
 
-public class Pet { }
+public class Pets { }
 public class Owner { }
