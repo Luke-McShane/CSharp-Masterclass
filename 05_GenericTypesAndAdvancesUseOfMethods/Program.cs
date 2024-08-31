@@ -13,7 +13,7 @@
 using System.Runtime.CompilerServices;
 using _05_GenericTypesAndAdvancesUseOfMethods;
 
-DictionaryExample2.Main();
+StrategyDesignPattern.Main();
 
 var myIntList = new ListOfItems<int>();
 myIntList.Add(10);
