@@ -31,16 +31,14 @@ public static class StrategyDesignPattern
   public static void Main()
   {
     var numbers = new List<int> { 10, 12, -100, 55, 17, 22 };
+    var filteringStrategySelector = new FilteringStrategySelector();
 
-    System.Console.WriteLine(@"Select Filter:
-    Odd
-    Even
-    Positive");
+    System.Console.WriteLine(@"Select Filter:");
+    System.Console.WriteLine(string.Join(Environment.NewLine, filteringStrategySelector.FilterNames));
 
     var userInput = Console.ReadLine();
-    var filteringStrategySelector = new FilteringStrategySelector();
     var filteringStrategy = filteringStrategySelector.Select(userInput);
-    var filterResult = new NumbersFilter().FilterBy(filteringStrategy, numbers);
+    var filterResult = new Filter().FilterBy(filteringStrategy, numbers);
 
     Print(filterResult);
   }
@@ -53,14 +51,14 @@ public static class StrategyDesignPattern
 
 
 
-public class NumbersFilter
+public class Filter
 {
-  public List<int> FilterBy(Func<int, bool> predicate, List<int> numbers)
+  public IEnumerable<T> FilterBy<T>(Func<T, bool> predicate, IEnumerable<T> input)
   {
-    var result = new List<int>();
-    foreach (var num in numbers)
+    var result = new List<T>();
+    foreach (var i in input)
     {
-      if (predicate(num)) result.Add(num);
+      if (predicate(i)) result.Add(i);
     }
     return result;
   }
@@ -74,6 +72,8 @@ public class FilteringStrategySelector
     {"Even", x => x % 2 == 0},
     {"Positive", x => x > 0}
   };
+
+  public IEnumerable<string> FilterNames => _filteringStrategies.Keys;
 
   // The code for selecting the filter type has been decoupled from this method, meaning that, if we want to add another filter,
   // we won't need to modify this method, but instead just extend the dictionary above. This helps us meet the open-closed principle.
