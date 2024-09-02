@@ -17,6 +17,12 @@ Reasons we don't want to modify existing code:
 STRATEGY DESIGN PATTERN
 
 The strategy design pattern allows us to define a family of algorithms that perform some tasks. The concrete strategy can be selected at runtime.
+There is usually a 'context' class which handles client requests and acts as the interface to the client. It doesn't know which algorithm
+is being called, but it will call whatever algorithm is passed to it.
+
+There is also usually a strategy interface, which will be implemented in the strategies class.
+
+The strategies class will implement the different strategies.
 */
 namespace _05_GenericTypesAndAdvancesUseOfMethods;
 
@@ -68,7 +74,9 @@ public class FilteringStrategySelector
     {"Even", x => x % 2 == 0},
     {"Positive", x => x > 0}
   };
-  
+
+  // The code for selecting the filter type has been decoupled from this method, meaning that, if we want to add another filter,
+  // we won't need to modify this method, but instead just extend the dictionary above. This helps us meet the open-closed principle.
   public Func<int, bool> Select(string filteringType)
   {
     if (!_filteringStrategies.ContainsKey(filteringType)) throw new NotSupportedException($"{filteringType} is not a valid filter.");
